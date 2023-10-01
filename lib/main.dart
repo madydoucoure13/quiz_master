@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'PageConnexion.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Quiz Master'),
+      home: const PageConnexion(),
     );
   }
 }
@@ -33,7 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-
       _counter++;
     });
   }
