@@ -12,9 +12,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
@@ -27,8 +24,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: Image.asset('assets/images/rounded.png'),
                 ),
                 Positioned(
-                  top: 12,
-                  left: 39,
+                  top: 38,
+                  right: 2,
                   child: Image.asset('assets/images/logo.png'),
                 )
               ],
