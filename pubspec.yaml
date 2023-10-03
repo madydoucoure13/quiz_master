@@ -37,6 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   device_preview: ^1.1.0
+  overlay_support: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/icons/iconEmail.png
+    - assets/icons/modifier.png
+    - assets/icons/tel.png
+    - assets/icons/date.png
+    - assets/icons/barbe.png
+    - assets/icons/sexe.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

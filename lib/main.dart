@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:quiz_master/profil_utilisateur.dart';
 import 'package:device_preview/device_preview.dart';
 
-
 void main() {
   runApp(
     DevicePreview(
       enabled: true,
-      builder: ((context) => MyApp()),
-      ),
+      builder: ((context) => const MyApp()),
+    ),
   );
 }
 
@@ -43,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-
       _counter++;
     });
   }
@@ -64,14 +62,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: ElevatedButton(
-          child: const Text('Profil utilisateur'),
+            child: const Text('Profil utilisateur'),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ProfilUtilisateur()),
+                MaterialPageRoute(
+                    builder: (context) => const ProfilUtilisateur()),
               );
-            }
-        ),
+            }),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
@@ -81,4 +79,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
