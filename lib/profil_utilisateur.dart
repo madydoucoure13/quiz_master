@@ -7,8 +7,9 @@ class ProfilUtilisateur extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(),
-      body: Column(
-        children: [
+      body: Stack(
+        clipBehavior: Clip.none ,
+        children:  [
           // Le premier container
           Container(
             height: 220,
@@ -51,45 +52,219 @@ class ProfilUtilisateur extends StatelessWidget {
             left: (150 - 0) / 1, // Position horizontale pour le milieu
             child: CircleAvatar(
               radius: 40,
-              backgroundImage: AssetImage('assets/icons/iconEmail.png'),
+              backgroundImage: AssetImage('assets/icons/sexe.png'),
             ),
           ),
-          // Conteneur avec icône, texte et icône en bas
+          // Ligne Email
           Positioned(
-            bottom: 0.0, // Position verticale en bas
+            bottom: -100, // Position verticale en bas
             left: 0.0,
             right: 0.0,
             child: Container(
-              color: Colors.blue,
+              color: Colors.transparent,
               padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                    size: 30.0,
-                  ),
+                  ImageIcon(
+    AssetImage('assets/icons/iconEmail.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
                   SizedBox(width: 10.0),
                   Text(
-                    'Mon texte',
+                    'example@gmail.com',
                     style: TextStyle(
                       color: Colors.black, // Couleur du texte en noir
                       fontSize: 24.0,
                     ),
                   ),
                   SizedBox(width: 10.0),
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                    size: 30.0,
-                  ),
+                  ImageIcon(
+    AssetImage('assets/icons/modifier.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
                 ],
               ),
             ),
           ),
+          // Ligne Pseudo
+          Positioned(
+            bottom: -145, // Position verticale en bas
+            left: 0.0,
+            right: 0.0,
+            child: Container(
+              color: Colors.transparent,
+              padding: const EdgeInsets.all(16.0),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ImageIcon(
+    AssetImage('assets/icons/barbe.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
+                  SizedBox(width: 10.0),
+                  Text(
+                    'Horen',
+                    style: TextStyle(
+                      color: Colors.black, // Couleur du texte en noir
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  SizedBox(width: 10.0),
+                  ImageIcon(
+    AssetImage('assets/icons/modifier.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
+                ],
+              ),
+            ),
+          ),
+          // Ligne Date
+          Positioned(
+            bottom: -190, // Position verticale en bas
+            left: 0.0,
+            right: 0.0,
+            child: Container(
+              color: Colors.transparent,
+              padding: const EdgeInsets.all(16.0),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ImageIcon(
+    AssetImage('assets/icons/date.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
+                  SizedBox(width: 10.0),
+                  Text(
+                    '10/10/2009',
+                    style: TextStyle(
+                      color: Colors.black, // Couleur du texte en noir
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  SizedBox(width: 10.0),
+                  ImageIcon(
+    AssetImage('assets/icons/modifier.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
+                ],
+              ),
+            ),
+          ),
+          // Ligne Telephone
+          Positioned(
+            bottom: -235, // Position verticale en bas
+            left: 0.0,
+            right: 0.0,
+            child: Container(
+              color: Colors.transparent,
+              padding: const EdgeInsets.all(16.0),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ImageIcon(
+    AssetImage('assets/icons/barbe.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
+                  SizedBox(width: 10.0),
+                  Text(
+                    'example@gmail.com',
+                    style: TextStyle(
+                      color: Colors.black, // Couleur du texte en noir
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  SizedBox(width: 10.0),
+                  ImageIcon(
+    AssetImage('assets/icons/modifier.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
+                ],
+              ),
+            ),
+          ),
+          // Ligne sexe
+          Positioned(
+            bottom: -280, // Position verticale en bas
+            left: 0.0,
+            right: 0.0,
+            child: Container(
+              color: Colors.transparent,
+              padding: const EdgeInsets.all(16.0),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ImageIcon(
+    AssetImage('assets/icons/sexe.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
+                  SizedBox(width: 10.0),
+                  Text(
+                    'Homme',
+                    style: TextStyle(
+                      color: Colors.black, // Couleur du texte en noir
+                      fontSize: 24.0,
+                    ),
+                  ),
+                  SizedBox(width: 10.0),
+                  ImageIcon(
+    AssetImage('assets/icons/modifier.png'),
+    color: Colors.transparent,
+    size: 30.0,
+  ),
+                ],
+              ),
+            ),
+          ),
+          //Les button 
+Positioned(
+  bottom: -500,
+  left: 0,
+  right: 0,
+  child: Container(
+    padding: EdgeInsets.symmetric(horizontal: 65.0), // Ajustez l'espace horizontal entre les boutons
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            primary: Color.fromRGBO(3, 151, 202, 1), // Couleur de fond du bouton
+            onPrimary: Color.fromRGBO(7, 10, 91, 1.0), // Couleur du texte du bouton
+            padding: EdgeInsets.all(16.0), // Espacement intérieur du bouton
+          ),
+          child: Text('Changer compte'),
+        ),
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            primary: Color.fromRGBO(255, 215, 0, 1.0), // Couleur de fond du bouton
+            onPrimary: Color.fromRGBO(7, 10, 91, 1.0), // Couleur du texte du bouton
+            padding: EdgeInsets.all(16.0), // Espacement intérieur du bouton
+          ),
+          child: Text('Déconnexion'),
+        ),
+      ],
+    ),
+  ),
+),
+
         ],
-      ),
+        ),
     );
   }
 }
