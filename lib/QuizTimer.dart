@@ -32,9 +32,10 @@ class _QuizTimerState extends State<QuizTimer> {
     return Center(
       child: CircularProgressIndicator(
         value: tempsRestant / widget.temps,
-        strokeWidth: 10,
+        strokeWidth: 5,
         backgroundColor: Colors.grey,
-        valueColor: const AlwaysStoppedAnimation(Colors.yellowAccent),
+        valueColor: const AlwaysStoppedAnimation(Colors.yellow),
+
       ),
     );
   }
