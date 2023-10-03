@@ -62,7 +62,7 @@ class ProfilUtilisateur extends StatelessWidget {
             child: Container(
               color: Colors.blue,
               padding: const EdgeInsets.all(16.0),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
