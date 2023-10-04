@@ -42,15 +42,68 @@ class PageAccueil extends StatelessWidget{
       ),
       body: ListView(
         children: <Widget>[
-          // barre info user
-          ClipPath(
+   // barre info user
+          Padding(padding: const EdgeInsets.all(0),
+          child: Stack(
+            children: [
+            Container(
+              decoration: const  BoxDecoration(),
+              child: ClipPath(
+            clipper: Courbe(), // Utilisez votre classe CustomClipPath comme clipper
+            child: Container(
+              height: 90.0, // Ajustez la hauteur selon vos besoins
+              color: const Color.fromARGB(255, 243, 201, 33), // Couleur de la barre info user
+            ),
+          ),
+            ),
+            Container(
+              decoration: const  BoxDecoration(),
+              child: ClipPath(
             clipper: Courbe(), // Utilisez votre classe CustomClipPath comme clipper
             child: Container(
               height: 80.0, // Ajustez la hauteur selon vos besoins
               color: Colors.blue, // Couleur de la barre info user
             ),
           ),
-          //barre de recherche
+            ),
+    //Nom user
+            Positioned(
+              top: 20.0,
+              left: 20.0,
+              child:Container(
+                decoration: const BoxDecoration(),
+                child: const Text('Mamadou FADIGA',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+
+                ),
+                ),
+            )
+              ),
+     //pour la photo de profil     
+               Positioned(
+                top: 10.0,
+                right: 20.0,
+                child: Container(
+                  height: 50.0,
+                  width: 50.0,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                       fit: BoxFit.cover,
+                      image: NetworkImage(
+                        "https://i.imgur.com/BoN9kdC.png",
+                        ),
+                    )
+                  ),
+                ),
+               ),
+          ]),
+          ),
+          
+    //barre de recherche
           Padding(
             padding:const EdgeInsets.all(10.0),
              child: TextFormField(
@@ -65,11 +118,20 @@ class PageAccueil extends StatelessWidget{
             )
             ),
           ),
-          const Padding(
+  //Liste deroulante
+          const Align(
+            alignment:Alignment.centerRight,
+          child:Padding(
             padding: EdgeInsets.only(right: 10),
-            child: DropdownMenuExample(),
-            )
-          
+            child:DropdownMenuExample(),
+            ),
+          ),
+         Methode(),
+         Methode(),
+         Methode(),
+         Methode(),
+         Methode(),
+
         ],
       ),
     );
@@ -101,7 +163,7 @@ class DropdownMenuExample extends StatefulWidget {
 }
 
 class _DropdownMenuExampleState extends State<DropdownMenuExample> {
-  static List<String> list = <String>['Culture générale', 'Informatique', 'Anglais', 'Biologie'];
+  static List<String> list = <String>['Toute categories','Culture générale', 'Informatique', 'Anglais', 'Biologie'];
   String dropdownValue = list.first;
 
   @override
@@ -120,3 +182,67 @@ class _DropdownMenuExampleState extends State<DropdownMenuExample> {
     );
   }
 }
+// ignore: camel_case_types
+class myDetaislContainer extends StatelessWidget{
+  const myDetaislContainer({super.key});
+
+  
+  @override
+  Widget build(BuildContext context){
+    return Column(
+      children: [
+        Container(
+          child: Text('Mon text 1'),
+        ),
+        Container(
+          child: Text('Mon text 2'),
+        ),
+        Container(
+          child: const Text('Mon text 3'),
+        )
+      ],
+    );
+  }
+}
+ 
+ class Methode extends StatelessWidget{
+  @override
+
+  Widget build(BuildContext context) {
+    return Center(
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Container(
+                child:FittedBox(
+                child: Material(
+                  color: Colors.white,
+                  elevation: 12.0,
+                  borderRadius: BorderRadius.circular(24.0),
+                  shadowColor: Color(0x802196F3),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        child: myDetaislContainer(),
+                      ),
+                      Container(
+                        width: 300,
+                        height: 100,
+                        child: ClipRRect(
+                          borderRadius: new BorderRadius.circular(24.0),
+                          child: const Image(
+                            fit: BoxFit.contain,
+                            alignment: Alignment.topRight,
+                            image:  NetworkImage(
+                            "https://i.imgur.com/BoN9kdC.png"),
+                        ),
+                      ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              ),
+            ),
+          );
+  }
+ }
