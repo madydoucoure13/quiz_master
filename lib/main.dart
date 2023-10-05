@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_master/PageScore.dart';
 import 'package:quiz_master/profil_utilisateur.dart';
-//import 'package:device_preview/device_preview.dart';
 
+//import 'package:device_preview/device_preview.dart';
 /*void main() {
   runApp(
     DevicePreview(
@@ -71,9 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const PageScore()),
-
+                MaterialPageRoute(builder: (context) => ProfilUtilisateur()),
               );
             }),
       ),

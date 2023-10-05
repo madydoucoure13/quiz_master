@@ -13,7 +13,7 @@ class PageScore extends StatelessWidget{
           children: <Widget>[
             Container(
               height: 50,
-              width: 360,
+              width: 395,
               decoration: BoxDecoration(
                 color: const Color.fromRGBO(3, 151, 202, 1),
               ),
