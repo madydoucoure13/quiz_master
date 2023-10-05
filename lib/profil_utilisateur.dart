@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'PageScore.dart';
+
 class ProfilUtilisateur extends StatelessWidget {
   const ProfilUtilisateur({super.key});
 
@@ -7,18 +9,20 @@ class ProfilUtilisateur extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(),
-      body: Stack(
+      body: SafeArea(
+        child:Stack(
         clipBehavior: Clip.none,
         children: [
           // Le premier container
           Container(
             height: 245,
             width: 500,
-            margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
+            margin: const EdgeInsets.only(top: 18, left: 20, right: 20),
             decoration: BoxDecoration(
               color: const Color.fromRGBO(3, 151, 202, 1),
               borderRadius: BorderRadius.circular(20),
             ),
+
             child: Align(
               alignment: Alignment.topLeft,
               child: IconButton(
@@ -34,7 +38,7 @@ class ProfilUtilisateur extends StatelessWidget {
           Container(
             height: 135,
             width: 250,
-            margin: const EdgeInsets.only(top: 210, left: 60),
+            margin: const EdgeInsets.only(top: 180, left: 60),
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 236, 232, 232),
               borderRadius: BorderRadius.circular(10),
@@ -67,8 +71,8 @@ class ProfilUtilisateur extends StatelessWidget {
           ),
           // UserProfile entre les deux conteneurs
           const Positioned(
-            top: (10 - 60) / 2 + 180, // Position verticale pour le milieu
-            left: (145 - 0) / 1, // Position horizontale pour le milieu
+            top: 140 - 0, // Position verticale pour le milieu
+            left: 145,// Position horizontale pour le milieu
             child: CircleAvatar(
               radius: 40,
               backgroundImage: AssetImage('assets/icons/sexe.png'),
@@ -76,192 +80,194 @@ class ProfilUtilisateur extends StatelessWidget {
           ),
           // Ligne Email
           Positioned(
-            bottom: -100, // Position verticale en bas
+            top: 300,
             left: 0.0,
             right: 0.0,
             child: Container(
               color: Colors.transparent,
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(35.0),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageIcon(
-                    AssetImage('assets/icons/iconEmail.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
+                 // ImageIcon(
+                  //  AssetImage('assets/icons/iconEmail.png'),
+                   // color: Colors.transparent,
+                   // size: 25.0,
+                  //),
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/iconEmail.png'),
                   ),
-                  SizedBox(width: 10.0),
+
+                  SizedBox(width: 0.0),
                   Text(
                     'example@gmail.com',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black, // Couleur du texte en noir
-                      fontSize: 24.0,
+                      fontSize: 20.0,
                     ),
                   ),
-                  SizedBox(width: 10.0),
-                  ImageIcon(
-                    AssetImage('assets/icons/modifier.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
-                  ),
+                  SizedBox(width: 0.0),
+                    //AssetImage('assets/icons/modifier.png'),
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/modifier.png'),
+                  )
                 ],
               ),
             ),
           ),
           // Ligne Pseudo
           Positioned(
-            bottom: -145, // Position verticale en bas
+            top: 345, // Position verticale en bas
             left: 0.0,
             right: 0.0,
             child: Container(
               color: Colors.transparent,
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(35.0),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageIcon(
-                    AssetImage('assets/icons/barbe.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/barbe.png'),
                   ),
-                  SizedBox(width: 10.0),
                   Text(
                     'Horen',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black, // Couleur du texte en noir
-                      fontSize: 24.0,
+                      fontSize: 20.0,
                     ),
                   ),
-                  SizedBox(width: 10.0),
-                  ImageIcon(
-                    AssetImage('assets/icons/modifier.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
-                  ),
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/modifier.png'),
+                  )
                 ],
               ),
             ),
           ),
           // Ligne Date
           Positioned(
-            bottom: -190, // Position verticale en bas
+            top: 390, // Position verticale en bas
             left: 0.0,
             right: 0.0,
             child: Container(
               color: Colors.transparent,
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(35.0),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageIcon(
-                    AssetImage('assets/icons/date.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/date.png'),
                   ),
-                  SizedBox(width: 10.0),
+                  SizedBox(width: 0.0),
                   Text(
                     '10/10/2009',
                     style: TextStyle(
                       color: Colors.black, // Couleur du texte en noir
-                      fontSize: 24.0,
+                      fontSize: 20.0,
                     ),
                   ),
-                  SizedBox(width: 10.0),
-                  ImageIcon(
-                    AssetImage('assets/icons/modifier.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
-                  ),
+                  SizedBox(width: 0.0),
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/modifier.png'),
+                  )
                 ],
               ),
             ),
           ),
           // Ligne Telephone
           Positioned(
-            bottom: -235, // Position verticale en bas
+            top: 435, // Position verticale en bas
             left: 0.0,
             right: 0.0,
             child: Container(
               color: Colors.transparent,
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(35.0),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageIcon(
-                    AssetImage('assets/icons/barbe.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/barbe.png'),
                   ),
-                  SizedBox(width: 10.0),
+                  SizedBox(width: 0.0),
                   Text(
-                    'example@gmail.com',
+                    '93080743',
                     style: TextStyle(
                       color: Colors.black, // Couleur du texte en noir
-                      fontSize: 24.0,
+                      fontSize: 20.0,
                     ),
                   ),
-                  SizedBox(width: 10.0),
-                  ImageIcon(
-                    AssetImage('assets/icons/modifier.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
-                  ),
+                  SizedBox(width: 0.0),
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/modifier.png'),
+                  )
                 ],
               ),
             ),
           ),
           // Ligne sexe
           Positioned(
-            bottom: -280, // Position verticale en bas
+            top: 480, // Position verticale en bas
             left: 0.0,
             right: 0.0,
             child: Container(
               color: Colors.transparent,
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(35.0),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageIcon(
-                    AssetImage('assets/icons/sexe.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/sexe.png'),
                   ),
-                  SizedBox(width: 10.0),
+                  SizedBox(width: 0.0),
                   Text(
                     'Homme',
                     style: TextStyle(
                       color: Colors.black, // Couleur du texte en noir
-                      fontSize: 24.0,
+                      fontSize: 20.0,
                     ),
                   ),
-                  SizedBox(width: 10.0),
-                  ImageIcon(
-                    AssetImage('assets/icons/modifier.png'),
-                    color: Colors.transparent,
-                    size: 30.0,
-                  ),
+                  SizedBox(width: 0.0),
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundImage: AssetImage('assets/icons/modifier.png'),
+                  )
                 ],
               ),
             ),
           ),
           //Les button
           Positioned(
-            bottom: -450,
+            top: 600,
             left: 0,
             right: 0,
             child: Container(
               padding: const EdgeInsets.symmetric(
                   horizontal:
-                      65.0), // Ajustez l'espace horizontal entre les boutons
+                      40.0), // Ajustez l'espace horizontal entre les boutons
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
+                  Expanded(
+                    child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                  minWidth: 200,
+              ),
+                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       primary: const Color.fromRGBO(
@@ -269,31 +275,48 @@ class ProfilUtilisateur extends StatelessWidget {
                       onPrimary: const Color.fromRGBO(
                           7, 10, 91, 1.0), // Couleur du texte du bouton
                       padding: const EdgeInsets.all(
-                          16.0), // Espacement intérieur du bouton
+                          10.0), // Espacement intérieur du bouton
                     ),
                     child: const Text(
                       'Changer compte',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: 15,
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
+                    ),
+                  ),
+                    const SizedBox(width: 10),
+                  Expanded(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        minWidth: 200,
+                      ),
+                   child: ElevatedButton(
+                     //Chemein pour la page score
+                    onPressed: () {
+                      Navigator.push(context,
+                      MaterialPageRoute (builder: (context) => const PageScore()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: const Color.fromRGBO(
-                          255, 215, 0, 1.0), // Couleur de fond du bouton
+                          255, 215, 0, 1.0),
                       onPrimary: const Color.fromRGBO(
-                          7, 10, 91, 1.0), // Couleur du texte du bouton
+                          7, 10, 91, 1.0),
                       padding: const EdgeInsets.all(
-                          16.0), // Espacement intérieur du bouton
+                          10.0),
                     ),
                     child: const Text(
                       'Déconnexion',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: 15,
                       ),
                     ),
+                  ),
+                  ),
                   ),
                 ],
               ),
@@ -301,6 +324,7 @@ class ProfilUtilisateur extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }

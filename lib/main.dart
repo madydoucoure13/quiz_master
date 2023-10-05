@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_master/PageScore.dart';
 import 'package:quiz_master/profil_utilisateur.dart';
-import 'package:device_preview/device_preview.dart';
+//import 'package:device_preview/device_preview.dart';
 
-void main() {
+/*void main() {
   runApp(
     DevicePreview(
       enabled: true,
       builder: ((context) => const MyApp()),
     ),
   );
+}*/
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,8 +22,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
+      debugShowCheckedModeBanner: false,
+      //locale: DevicePreview.locale(context),
+      //builder: DevicePreview.appBuilder,
       title: 'Quiz Master',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -67,7 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ProfilUtilisateur()),
+                    builder: (context) => const PageScore()),
+
               );
             }),
       ),
