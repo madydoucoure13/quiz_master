@@ -189,17 +189,36 @@ class myDetaislContainer extends StatelessWidget{
   
   @override
   Widget build(BuildContext context){
-    return Column(
+    return const Column(
       children: [
-        Container(
-          child: Text('Mon text 1'),
+        Padding(padding: EdgeInsets.only(left: 5),
+        child:Center(
+            child: Text('Springboot',
+            style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+            ),),
+          ),
         ),
-        Container(
-          child: Text('Mon text 2'),
+        Padding(padding: EdgeInsets.only(left: 5),
+        child:
+        Text('Catégorie: informatique',
+        style: TextStyle(
+          fontSize:15,
+          color: Colors.black 
+            ),
+          ),
         ),
-        Container(
-          child: const Text('Mon text 3'),
-        )
+        Padding(padding: EdgeInsets.only(left:5),
+        child:
+        Text('Créer par: Mamadou FADIGA',
+        style: TextStyle(
+          fontSize:15,
+          color: Colors.black 
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -221,20 +240,24 @@ class myDetaislContainer extends StatelessWidget{
                   shadowColor: Color(0x802196F3),
                   child: Row(
                     children: <Widget>[
-                      Container(
-                        child: myDetaislContainer(),
-                      ),
-                      Container(
+                      const myDetaislContainer(),
+                      Padding(padding: const EdgeInsets.only(left: 100),
+                      child:
+                      SizedBox(
                         width: 300,
                         height: 100,
                         child: ClipRRect(
-                          borderRadius: new BorderRadius.circular(24.0),
-                          child: const Image(
-                            fit: BoxFit.contain,
-                            alignment: Alignment.topRight,
-                            image:  NetworkImage(
-                            "https://i.imgur.com/BoN9kdC.png"),
-                        ),
+                          borderRadius: BorderRadius.circular(24.0),
+                          child: Container(
+                            decoration:const BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                               fit: BoxFit.contain,
+                                image: NetworkImage("https://i.imgur.com/BoN9kdC.png"),
+                    )
+                            ),
+                          ),
+                          )
                       ),
                       ),
                     ],
