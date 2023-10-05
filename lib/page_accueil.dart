@@ -126,11 +126,11 @@ class PageAccueil extends StatelessWidget{
             child:DropdownMenuExample(),
             ),
           ),
-         Methode(),
-         Methode(),
-         Methode(),
-         Methode(),
-         Methode(),
+         const Methode(),
+         const Methode(),
+         const Methode(),
+         const Methode(),
+         const Methode(),
 
         ],
       ),
@@ -192,15 +192,13 @@ class myDetaislContainer extends StatelessWidget{
     return const Column(
       children: [
         Padding(padding: EdgeInsets.only(left: 5),
-        child:Center(
-            child: Text('Springboot',
+          child: Text('Springboot',
             style: TextStyle(
               color: Colors.blue,
               fontWeight: FontWeight.bold,
               fontSize: 25,
             ),),
           ),
-        ),
         Padding(padding: EdgeInsets.only(left: 5),
         child:
         Text('Catégorie: informatique',
@@ -225,43 +223,51 @@ class myDetaislContainer extends StatelessWidget{
 }
  
  class Methode extends StatelessWidget{
+  const Methode({super.key});
+
   @override
 
   Widget build(BuildContext context) {
     return Center(
             child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                child:FittedBox(
-                child: Material(
-                  color: Colors.white,
-                  elevation: 12.0,
-                  borderRadius: BorderRadius.circular(24.0),
-                  shadowColor: Color(0x802196F3),
-                  child: Row(
-                    children: <Widget>[
-                      const myDetaislContainer(),
-                      Padding(padding: const EdgeInsets.only(left: 100),
-                      child:
-                      SizedBox(
-                        width: 300,
-                        height: 100,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(24.0),
-                          child: Container(
-                            decoration:const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                               fit: BoxFit.contain,
-                                image: NetworkImage("https://i.imgur.com/BoN9kdC.png"),
-                    )
-                            ),
-                          ),
-                          )
-                      ),
-                      ),
-                    ],
-                  ),
+              padding: const EdgeInsets.all(10),
+              child: FittedBox(
+              child: Material(
+                color: Colors.white,
+                elevation: 12.0,
+                borderRadius: BorderRadius.circular(24.0),
+                shadowColor: const Color(0x802196F3),
+                child:
+                 Row(
+                   children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(right: 150,),
+                      child:  const myDetaislContainer(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                    child:
+                    SizedBox(
+                      height: 100,
+                      child: 
+                      Positioned(
+                        top: 10.0,
+                        right: 100.0,
+                        child: Container(
+                        height: 80.0,
+                        width: 80.0,
+                        decoration: const BoxDecoration(
+                           shape: BoxShape.circle,
+                           image: DecorationImage(
+                              fit: BoxFit.cover,
+                             image: NetworkImage("https://i.imgur.com/BoN9kdC.png",),
+                  )
+                ),
+              ),
+               ),
+                    ),
+                    ),
+                  ],
                 ),
               ),
               ),
