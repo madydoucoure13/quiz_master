@@ -1,8 +1,19 @@
+//import 'dart:js';
+
 import 'package:flutter/material.dart';
-import 'package:quiz_master/page_accueil.dart';
+
+import 'container/nav_bar_section.dart';
+
+import 'package:device_preview/device_preview.dart';
 
 void main() {
-  runApp(const Quiz());
+  runApp(
+    DevicePreview(
+      enabled: true,
+      builder: (context) => const Quiz(),
+    )
+
+  );
 }
 
 class Quiz extends StatelessWidget {
@@ -11,13 +22,59 @@ class Quiz extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
-      title: 'Quiz Master',
+    return MaterialApp(
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
+      // title: 'Quiz Master',
       debugShowCheckedModeBanner: false,
-      home: PageAccueil(),
+      home: const NavBarSection(),
+
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // class MyHomePage extends StatefulWidget {
 //   const MyHomePage({super.key, required this.title});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_master/bar_grave/bar_graph.dart';
+
+import '../bar_grave/bar_graph.dart';
 
     class ChartsPage extends StatefulWidget {
       const ChartsPage({super.key});
@@ -22,6 +23,34 @@ import 'package:quiz_master/bar_grave/bar_graph.dart';
 
       @override
       Widget build(BuildContext context) {
+        return Center(
+          child: SizedBox(
+            height: 200,
+            child: Container(
+              margin: const EdgeInsets.only(top: 50.0),
+              child: MyBarGraph(
+                weeklySummary: weeklySummary,
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+    /*
+    return Center(
+          child: SizedBox(
+            height: 200,
+            child: MyBarGraph(
+              weeklySummary: weeklySummary,
+            ),
+          ),
+        );
+    */
+
+    /*
+
+    Widget build(BuildContext context) {
         return Scaffold(
           backgroundColor: Colors.grey[100],
           body: Center(
@@ -29,12 +58,12 @@ import 'package:quiz_master/bar_grave/bar_graph.dart';
               height: 200,
                 child: MyBarGraph(
                   weeklySummary: weeklySummary,
-
                 ),
             ),
           ),
         );
       }
-    }
+
+     */
     
 
