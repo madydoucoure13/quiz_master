@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           Navigator.push(context, 
-          MaterialPageRoute(builder: (context) =>  quiz_create()),);
+          MaterialPageRoute(builder: (context) =>  QuizCreate()),);
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
