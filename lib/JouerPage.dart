@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'QuizTimer.dart';
+import 'package:http/http.dart' as http;
+import 'data.dart';
 
 class JouerPage extends StatefulWidget {
   const JouerPage({Key? key}) : super(key: key);
@@ -16,6 +20,14 @@ class _JouerPageState extends State<JouerPage> {
     const Response(' first response ', false),
   ];
 
+  late Future<List<Quiz>> quizList;
+  @override
+  void initState() {
+    super.initState();
+    quizList = fetchQuiz();
+    print(quizList);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +40,7 @@ class _JouerPageState extends State<JouerPage> {
                   widthFactor: 0.94,
                   child: Container(
                     height: 230,
-                    margin: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                     decoration: ShapeDecoration(
                       color: const Color(0xFF10B2E9),
                       shape: RoundedRectangleBorder(
@@ -52,7 +64,7 @@ class _JouerPageState extends State<JouerPage> {
                   widthFactor: 0.9,
                   child: Container(
                     height: 140,
-                    margin: const EdgeInsets.fromLTRB(20, 250, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(20, 230, 0, 0),
                     padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
                     decoration: ShapeDecoration(
                       color: Colors.white,
@@ -98,8 +110,8 @@ class _JouerPageState extends State<JouerPage> {
                   ),
                 ),
                 const Positioned(
-                  top: 190,
-                  left: 130,
+                  top: 170,
+                  left: 140,
                   child: QuizTimer(temps: 30),
                 ),
               ]),
@@ -132,6 +144,20 @@ class _JouerPageState extends State<JouerPage> {
     );
   }
 
+  Future<List<Quiz>> fetchQuiz() async {
+    final response = await http.get(Uri.parse('http://10.0.2.2:8080/quiz/list'));
+
+    if (response.statusCode == 200) {
+      // Si le serveur renvoie une réponse 200 OK, vous devez analyser une liste de quiz.
+      final List<dynamic> quizJsonList = jsonDecode(response.body);
+      final List<Quiz> quizzes = quizJsonList.map((quizJson) => Quiz.fromJson(quizJson)).toList();
+      return quizzes;
+    } else {
+      // Si le serveur ne renvoie pas une réponse 200 OK, lancez une exception.
+      throw Exception('Failed to load quizzes');
+    }
+  }
+
   void onPressed() {
 
   }
@@ -148,7 +174,7 @@ class QuestionCard extends StatelessWidget {
         Container(
           width: 302,
           height: 45,
-          margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+          margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
           decoration: ShapeDecoration(
             color: const Color(0xFFF7F7F7),
             shape:
