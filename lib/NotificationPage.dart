@@ -13,7 +13,7 @@ class NotificationPage extends StatelessWidget{
   }
   PreferredSizeWidget appBar(){
     return AppBar(
-      title : Text('Page notification')
+      title : const Text('Page notification')
     );
   }
   Widget listView(){
@@ -22,7 +22,7 @@ class NotificationPage extends StatelessWidget{
       return listViewItem(index);
     }, 
         separatorBuilder: (context, index){
-      return Divider(height: 0);
+      return const Divider(height: 0);
     }, 
         itemCount: 15);
   }
@@ -30,7 +30,7 @@ class NotificationPage extends StatelessWidget{
     return Container (
       height: 50,
       width: 50,
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.grey.shade300,
@@ -44,14 +44,14 @@ class NotificationPage extends StatelessWidget{
   }
   Widget listViewItem(int index){
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           prefixIcon(),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(left: 10),
+              margin: const EdgeInsets.only(left: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -79,7 +79,7 @@ Widget message(index){
           color: Colors.black,
           fontWeight: FontWeight.bold
         ),
-        children: [
+        children: const [
           TextSpan(
             text: 'Message Descriptipn',
             style: TextStyle(
@@ -94,7 +94,7 @@ Widget message(index){
 Widget timeAndDate(int index){
   return Container(
     margin: EdgeInsets.only(top: 10),
-    child: Row(
+    child: const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
