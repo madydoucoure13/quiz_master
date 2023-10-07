@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'PageScore.dart';
-
 class ProfilUtilisateur extends StatelessWidget {
   const ProfilUtilisateur({super.key});
 
@@ -295,11 +293,7 @@ class ProfilUtilisateur extends StatelessWidget {
                       ),
                    child: ElevatedButton(
                      //Chemein pour la page score
-                    onPressed: () {
-                      Navigator.push(context,
-                      MaterialPageRoute (builder: (context) => const PageScore()),
-                      );
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       primary: const Color.fromRGBO(
                           255, 215, 0, 1.0),

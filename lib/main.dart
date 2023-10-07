@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_master/PageScore.dart';
+import 'package:quiz_master/NotificationPage.dart';
 import 'package:quiz_master/profil_utilisateur.dart';
 //import 'package:device_preview/device_preview.dart';
 
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const PageScore()),
+                    builder: (context) => const ProfilUtilisateur()),
 
               );
             }),
