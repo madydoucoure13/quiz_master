@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_master/quiz_create.dart';
 
 class Mesquiz extends StatelessWidget{
   const Mesquiz({super.key});
@@ -132,12 +133,17 @@ class Mesquiz extends StatelessWidget{
            ) ,
           ),
   //Liste deroulante
-          Stack(
-            children: [
-              Positioned(
-                left: 5,
-                child: ElevatedButton(
-                  onPressed: () {},
+                    Stack(
+                      children: [
+                        Positioned(
+                          left: 5,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const QuizCreate()),
+          );
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13),//Vous pouvez jouer sur cette valeur pour avoir le bord arrondi que vous voulez

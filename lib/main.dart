@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_master/mes_quiz.dart';
 import 'package:quiz_master/quiz_populaire.dart';
-// import 'package:quiz_master/page_accueil.dart';
+import 'package:quiz_master/page_accueil.dart';
+import 'package:quiz_master/quiz_create.dart';
 
 void main() {
   runApp(const Quiz());
@@ -19,6 +20,8 @@ class Quiz extends StatelessWidget {
       //home: PageAccueil(),
       // home: QuizPopulaire(),
       home: Mesquiz(),
+      // home: QuizCreate(),
+
 
       
     );
