@@ -140,9 +140,9 @@ class Mesquiz extends StatelessWidget{
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const QuizCreate()),
-          );
+                                 context,
+                                 MaterialPageRoute(builder: (context) => const QuizCreate()),
+                               );
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -270,56 +270,108 @@ class myDetaislContainer extends StatelessWidget{
   }
 }
  
- class Methode extends StatelessWidget{
+ class Methode extends StatelessWidget {
   const Methode({super.key});
 
-  @override
+  // Fonction pour afficher une boîte de dialogue d'alerte
+ void _showAlertDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("SPRING-BOOT"), // Utilisez le nom du quiz
+        content: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Catégorie: informatique'), // Utilisez la catégorie du quiz
+            Text('Créé par: Mamadou FADIGA'), // Utilisez le créateur du quiz
+            // Ajoutez ici d'autres détails du quiz si nécessaire
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Mettez ici la logique pour modifier le quiz
+              // Par exemple, pour naviguer vers la page de modification :
+              Navigator.of(context).pop(); // Fermez la boîte de dialogue
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => QuizCreate(),
+                ),
+              );
+            },
+            child: const Text('Modifier'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Fermer'),
+          ),
+        ],
+      );
+    },
+  );
+}
 
+
+  @override
   Widget build(BuildContext context) {
     return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: FittedBox(
-              child: Material(
-                color: Colors.white,
-                elevation: 12.0,
-                borderRadius: BorderRadius.circular(24.0),
-                shadowColor: const Color(0x802196F3),
-                child:
-                 Row(
-                   children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(right: 150,),
-                      child:  const myDetaislContainer(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                    child:
-                    SizedBox(
-                      height: 100,
-                      child: 
-                      Positioned(
-                        top: 10.0,
-                        right: 100.0,
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: FittedBox(
+          child: Material(
+            color: Colors.white,
+            elevation: 12.0,
+            borderRadius: BorderRadius.circular(24.0),
+            shadowColor: const Color(0x802196F3),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(right: 150,),
+                  child: const myDetaislContainer(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: SizedBox(
+                    height: 100,
+                    child: Positioned(
+                      top: 10.0,
+                      right: 100.0,
+                      child: GestureDetector(
+                        onTap: () {
+                          // Lorsque l'utilisateur appuie sur cet élément,
+                          // affichez la boîte de dialogue d'alerte.
+                          _showAlertDialog(context);
+                        },
                         child: Container(
-                        height: 70.0,
-                        width: 70.0,
-                        decoration: const BoxDecoration(
-                           shape: BoxShape.circle,
-                           image: DecorationImage(
+                          height: 70.0,
+                          width: 70.0,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
                               fit: BoxFit.cover,
-                             image: NetworkImage("https://i.imgur.com/BoN9kdC.png",),
-                  )
-                ),
-              ),
-               ),
+                              image: NetworkImage("https://i.imgur.com/BoN9kdC.png",),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              ),
+              ],
             ),
-          );
+          ),
+        ),
+      ),
+    );
   }
- }
+}
+
+
+
+
+ // le popup 
+ 
