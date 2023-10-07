@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class PageAccueil extends StatelessWidget{
-  const PageAccueil({Key? key}) : super(key:key);
+class Mesquiz extends StatelessWidget{
+  const Mesquiz({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +123,7 @@ class PageAccueil extends StatelessWidget{
             margin: const EdgeInsets.only(bottom: 5),
             child:
           const Center(
-            child: Text("CHOISIR UN QUIZ",
+            child: Text("LISTE DE MES QUIZ",
             style: TextStyle(
               color: Colors.blue,
               fontSize: 20,
@@ -131,13 +132,42 @@ class PageAccueil extends StatelessWidget{
            ) ,
           ),
   //Liste deroulante
-          const Align(
+          Stack(
+            children: [
+              Positioned(
+                left: 5,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13),//Vous pouvez jouer sur cette valeur pour avoir le bord arrondi que vous voulez
+                    ),
+                  ),
+                  child: const Text('Créer Quiz +',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 243, 201, 33),
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold
+                  ),),
+                ),
+              ),
+              const Positioned(child: Align(
             alignment:Alignment.centerRight,
           child:Padding(
             padding: EdgeInsets.only(right: 10),
             child:DropdownMenuExample(),
             ),
           ),
+          )
+            ],
+          ),
+          // const Align(
+          //   alignment:Alignment.centerRight,
+          // child:Padding(
+          //   padding: EdgeInsets.only(right: 10),
+          //   child:DropdownMenuExample(),
+          //   ),
+          // ),
          const Methode(),
          const Methode(),
          const Methode(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PageAccueil extends StatelessWidget{
-  const PageAccueil({Key? key}) : super(key:key);
+class QuizPopulaire extends StatelessWidget {
+  const QuizPopulaire({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +122,7 @@ class PageAccueil extends StatelessWidget{
             margin: const EdgeInsets.only(bottom: 5),
             child:
           const Center(
-            child: Text("CHOISIR UN QUIZ",
+            child: Text("LISTE DES QUIZ POPULAIRES",
             style: TextStyle(
               color: Colors.blue,
               fontSize: 20,

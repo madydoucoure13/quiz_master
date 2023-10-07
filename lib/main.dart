@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_master/page_accueil.dart';
+import 'package:quiz_master/mes_quiz.dart';
+import 'package:quiz_master/quiz_populaire.dart';
+// import 'package:quiz_master/page_accueil.dart';
 
 void main() {
   runApp(const Quiz());
@@ -14,7 +16,11 @@ class Quiz extends StatelessWidget {
     return  const MaterialApp(
       title: 'Quiz Master',
       debugShowCheckedModeBanner: false,
-      home: PageAccueil(),
+      //home: PageAccueil(),
+      // home: QuizPopulaire(),
+      home: Mesquiz(),
+
+      
     );
   }
 }
