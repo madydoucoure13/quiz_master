@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'PageConnexion.dart';
-import 'LoginPage.dart';
 import 'JouerPage.dart';
 
 void main() {

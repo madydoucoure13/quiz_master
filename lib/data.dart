@@ -62,9 +62,9 @@ class Quiz {
     final questions = questionsList.map((question) => Question.fromJson(question)).toList();
 
     return Quiz(
-      idQuiz: json['idQuiz'],
-      titre: json['titre'],
-      timer: json['timer'],
+      idQuiz: json['idQuiz'] ?? 0,
+      titre: json['titre'] ?? '',
+      timer: json['timer'] ?? 0,
       utilisateur: utilisateur,
       questions: questions,
     );

@@ -1,9 +1,24 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'QuizTimer.dart';
 import 'package:http/http.dart' as http;
 import 'data.dart';
+
+Future<List<Quiz>> fetchQuiz() async {
+  final response = await http.get(Uri.parse('http://localhost:9090/quiz/list'), headers: {"Access-Control-Allow-Origin": "*"});
+
+  if (response.statusCode == 200) {
+    // Si le serveur renvoie une réponse 200 OK, vous devez analyser une liste de quiz.
+    final List<dynamic> quizJsonList = jsonDecode(response.body);
+    final List<Quiz> quizzes = quizJsonList.map((quizJson) => Quiz.fromJson(quizJson)).toList();
+    return quizzes;
+  } else {
+    // Si le serveur ne renvoie pas une réponse 200 OK, lancez une exception.
+    throw Exception('Failed to load quizzes');
+  }
+}
 
 class JouerPage extends StatefulWidget {
   const JouerPage({Key? key}) : super(key: key);
@@ -21,11 +36,11 @@ class _JouerPageState extends State<JouerPage> {
   ];
 
   late Future<List<Quiz>> quizList;
+
   @override
   void initState() {
     super.initState();
     quizList = fetchQuiz();
-    print(quizList);
   }
 
   @override
@@ -95,7 +110,7 @@ class _JouerPageState extends State<JouerPage> {
                           ),
                         ),
                         Text(
-                          'Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page,',
+                          'Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.black,
@@ -116,12 +131,7 @@ class _JouerPageState extends State<JouerPage> {
                 ),
               ]),
               Expanded(
-                child: ListView.builder(
-                  itemCount: responses.length,
-                  itemBuilder: (context, index) {
-                    return QuestionCard(response: responses[index]);
-                  },
-                ),
+                child: QuestionCard(quiz: quizList)
               ),
               TextButton(
                   onPressed: onPressed,
@@ -144,19 +154,7 @@ class _JouerPageState extends State<JouerPage> {
     );
   }
 
-  Future<List<Quiz>> fetchQuiz() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:8080/quiz/list'));
 
-    if (response.statusCode == 200) {
-      // Si le serveur renvoie une réponse 200 OK, vous devez analyser une liste de quiz.
-      final List<dynamic> quizJsonList = jsonDecode(response.body);
-      final List<Quiz> quizzes = quizJsonList.map((quizJson) => Quiz.fromJson(quizJson)).toList();
-      return quizzes;
-    } else {
-      // Si le serveur ne renvoie pas une réponse 200 OK, lancez une exception.
-      throw Exception('Failed to load quizzes');
-    }
-  }
 
   void onPressed() {
 
@@ -164,64 +162,35 @@ class _JouerPageState extends State<JouerPage> {
 }
 
 class QuestionCard extends StatelessWidget {
-  final Response response;
-  const QuestionCard({super.key, required this.response});
+  final Future<List<Quiz>> quiz;
+  const QuestionCard({super.key, required this.quiz});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 302,
-          height: 45,
-          margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-          decoration: ShapeDecoration(
-            color: const Color(0xFFF7F7F7),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-            shadows: const [
-              BoxShadow(
-                color: Color(0xFF10B2E9),
-                blurRadius: 4,
-                offset: Offset(0, 0),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              const Text(
-                 '1 .',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
-                  height: 0,
-                ),
-              ),
-              Text(
-                 response.libele,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                  height: 0,
-                ),
-              ),
-              Container(
-                width: 24,
-                height: 24,
-                clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(),
-                child: const Icon( Icons.close),
-              ),
-            ],
-          ),
-        ),
-      ],
+    return FutureBuilder<List<Quiz>>(
+      future: quiz,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // En cours de chargement, vous pouvez afficher un indicateur de chargement ici.
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          // En cas d'erreur, vous pouvez afficher un message d'erreur ici.
+          return Text('Error: ${snapshot.error}');
+        } else {
+          // Lorsque les données sont prêtes, affichez-les.
+          final quizzes = snapshot.data ?? [];
+          return ListView.builder(
+            itemCount: quizzes.length,
+            itemBuilder: (BuildContext context, int index) {
+              final quiz = quizzes[index];
+              return ListTile(
+                title: Text(quiz.titre),
+                // Ajoutez ici d'autres éléments d'affichage ou de traitement en fonction de vos besoins.
+              );
+            },
+          );
+        }
+      },
     );
   }
 }
