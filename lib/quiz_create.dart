@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
@@ -10,7 +11,8 @@ const List<String> list = <String>[
   'Three',
   'Four',
 ];
-
+        // Déclarez la clé en dehors de la fonction build.
+        final _formKey = GlobalKey<FormState>();
 class QuizCreate extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _QuizCreateState();
@@ -74,45 +76,86 @@ class _QuizCreateState extends State<QuizCreate> {
                 ClipPath(
                   clipper: CustomClipPath(),
                   child: Container(
-                    height: 100.0,
+                    height: 90.0,
                     color: Colors.amber,
                   ),
                 ),
                 ClipPath(
                   clipper: CustomClipPath(),
                   child: Container(
-                    height: 92.0,
+                    height: 82.0,
                     color: Colors.blue,
                   ),
                 ),
               ],
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 120, left: 30, right: 30),
-              padding: const EdgeInsets.only(
-                  left: 10, top: 0, right: 0, bottom: 0),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(145, 145, 145, 145),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: DropdownButton<String>(
-                value: dropdownValue,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                  });
-                },
-                items: list.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+            Positioned(
+              top: 20.0,
+              left: 20.0,
+              child: Container(
+                decoration: BoxDecoration(),
+                child: const Text(
+                  'User Name',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
+
+            Positioned(
+                top: 10.0,
+                right: 20.0,
+                child: Container(
+                  height: 50.0,
+                  width: 50.0,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage("assets/images/profil.png"),
+                    ),
+                  ),
+                ),
+              ),
+
+
+           Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 100, left: 55, right: 55),
+                    padding: const EdgeInsets.only(
+                      left: 10, top: 0, right: 0, bottom: 0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(145, 145, 145, 145),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: DropdownButton<String>(
+                      value: dropdownValue,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      },
+                      items: list.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+                // Autres widgets horizontaux ici
+              ],
+            ),
+
             Container(
-              margin: const EdgeInsets.only(top: 170, left: 30, right: 30),
+              margin: const EdgeInsets.only(top: 150, left: 40, right: 40),
               padding: const EdgeInsets.all(10),
               width: double.infinity,
               child: Column(
@@ -122,80 +165,132 @@ class _QuizCreateState extends State<QuizCreate> {
                     'Posez votre question en lui donnant un nom et un temps max de réponse en seconde',
                     style: TextStyle(fontSize: 14),
                   ),
-                  SizedBox(height: 8.0),
                   Card(
-                    elevation: 0,
-                    color: Color.fromARGB(145, 145, 145, 145),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    hintText: 'Nom de la Quiz',
-                                    hintStyle: TextStyle(
+                      elevation: 0,
+                      color: Color.fromARGB(145, 145, 145, 145),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                         Padding(
+                            padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                            child: Row(
+                              children: [
+                                const Expanded(
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      hintText: 'Nom de la Quiz',
+                                      hintStyle: TextStyle(
                                         fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    style: TextStyle(
                                       fontSize: 14,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 5),
-                              Icon(
-                                Icons.alarm,
-                                color: Colors.blue,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: 'La Question',
-                              hintStyle: TextStyle(fontSize: 14),
+                                GestureDetector(
+                                  onTap: () {
+                                    // Code à exécuter lorsque l'icône est cliquée
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text("Définir un temps de réponse"),
+                                          content: Form(
+                                            key: _formKey,
+                                            child: TextFormField(
+                                              decoration: const InputDecoration(
+                                                hintText: 'Durée',
+                                                hintStyle: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              keyboardType: TextInputType.number,
+                                              validator: (value) {
+                                                if (value == null || value.isEmpty) {
+                                                  return 'Veuillez entrer une valeur.';
+                                                }
+                                                final numericValue = int.tryParse(value);
+                                                if (numericValue == null || numericValue > 20) {
+                                                  return 'La valeur doit être un nombre inférieur ou égal à 20.';
+                                                }
+                                                return null;
+                                              },
+                                              inputFormatters: <TextInputFormatter>[
+                                                FilteringTextInputFormatter.digitsOnly,
+                                              ],
+                                            ),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                if (_formKey.currentState!.validate()) {
+                                                  Navigator.of(context).pop();
+                                                }
+                                              },
+                                              child: const Text("Valider"),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: const Icon(
+                                    Icons.alarm,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ],
                             ),
-                            style: TextStyle(fontSize: 14),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Row(
-                            children: [
-                              ElevatedButton(
-                                onPressed: _getImage,
-                                child: Text('Sélectionner une image'),
+                          const Padding(
+                            padding: EdgeInsets.all(6.0),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'La Question',
+                                hintStyle: TextStyle(fontSize: 14),
                               ),
-                              SizedBox(width: 8),
-                              _image != null
-                                  ? Image.file(File(_image!.path),
-                                      width: 50, height: 50)
-                                  : SizedBox.shrink(),
-                            ],
+                              style: TextStyle(fontSize: 14),
+                            ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Row(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: _getImage,
+                                  child: Text('Sélectionner une image'),
+                                ),
+                                SizedBox(width: 8),
+                                _image != null
+                                    ? Image.file(File(_image!.path),
+                                        width: 50, height: 50)
+                                    : SizedBox.shrink(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+
                   const Text(
                     'Faites vos propositions ici et indiquez la/les bonne(s) réponse(s)',
                     style: TextStyle(fontSize: 14),
                   ),
-                  // Formulaire
                   Expanded(
                     child: ListView(
                       children: [
                         buildResponseCard(1, 'Votre Réponse 1'),
                         buildResponseCard(2, 'Votre Réponse 2'),
                         buildResponseCard(3, 'Votre Réponse 3'),
-                        buildResponseCard(3, 'Votre Réponse 4'),
-                        
+                        buildResponseCard(4, 'Votre Réponse 4'),
                       ],
                     ),
                   ),
@@ -211,9 +306,11 @@ class _QuizCreateState extends State<QuizCreate> {
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.blue),
+                            minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
                           ),
                           child: Text('Terminer'),
                         ),
+                        SizedBox(width: 8),
                         ElevatedButton(
                           onPressed: () {
                             // Logique à exécuter lorsque le deuxième bouton est pressé.
@@ -221,6 +318,7 @@ class _QuizCreateState extends State<QuizCreate> {
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.amber),
+                            minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
                           ),
                           child: Text('Nouvelle question >'),
                         ),
@@ -258,7 +356,7 @@ class _QuizCreateState extends State<QuizCreate> {
             Radio(
               value: value,
               groupValue: 1,
-              onChanged: (value) {
+              onChanged: (dynamic value) {
                 // Ajoutez le code de gestion du changement de valeur ici
               },
             ),
