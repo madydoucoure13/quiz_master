@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'QuizTimer.dart';
 import 'package:http/http.dart' as http;
-import 'data.dart';
+import 'modeles/quiz.dart';
 
 Future<List<Quiz>> fetchQuiz() async {
   final response = await http.get(Uri.parse('http://localhost:9090/quiz/list'), headers: {"Access-Control-Allow-Origin": "*"});
@@ -28,19 +28,37 @@ class JouerPage extends StatefulWidget {
 }
 
 class _JouerPageState extends State<JouerPage> {
-  final List<Response> responses = [
-    const Response(' first response ', false),
-    const Response(' first response ', false),
-    const Response(' first response ', true),
-    const Response(' first response ', false),
-  ];
 
   late Future<List<Quiz>> quizList;
 
   @override
   void initState() {
+    list();
     super.initState();
     quizList = fetchQuiz();
+  }
+
+  void list() async {
+    try {
+      final List<Quiz> quizList = await fetchQuiz();
+      // Maintenant, vous avez une liste d'objets Quiz prêts à être utilisés.
+      // Vous pouvez les afficher, les traiter, etc.
+      for (final quiz in quizList) {
+        print('ID: ${quiz.idQuiz}');
+
+        print('Titre: ${quiz.titre}');
+        print('Timer: ${quiz.timer}');
+        print('Utilisateur: ${quiz.utilisateur.nom} ${quiz.utilisateur.prenom}');
+        print('Questions:');
+        for (final question in quiz.questions) {
+          print('  Question ID: ${question.idQuestion}');
+          print('  Contenu: ${question.contenue}');
+        }
+        print('-----------------------');
+      }
+    } catch (e) {
+      print('Une erreur s\'est produite lors de la récupération des quiz : $e');
+    }
   }
 
   @override
@@ -172,7 +190,7 @@ class QuestionCard extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // En cours de chargement, vous pouvez afficher un indicateur de chargement ici.
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           // En cas d'erreur, vous pouvez afficher un message d'erreur ici.
           return Text('Error: ${snapshot.error}');
@@ -193,11 +211,4 @@ class QuestionCard extends StatelessWidget {
       },
     );
   }
-}
-
-class Response {
-  final String libele;
-  final bool trueResponse;
-
-  const Response(this.libele, this.trueResponse);
 }
