@@ -15,10 +15,10 @@
 // }
 //
 // class _QuizState extends State<Quiz> {
-//   int _currentQuestionIndex = 0;
-//   int _timeRemaining = quiz.timer;
-//   bool _isAnswerSelected = false;
-//   bool _isButtonVisible = true;
+  int _currentQuestionIndex = 0;
+  // int _timeRemaining = quiz.timer;
+  bool _isAnswerSelected = false;
+  bool _isButtonVisible = true;
 //
 //   @override
 //   void initState() {

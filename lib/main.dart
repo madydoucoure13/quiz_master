@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'JouerPage.dart';
+import 'fetchData.dart';
+import 'modeles/quiz.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,51 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const JouerPage(),
+      home:  MyPAge(),
+    );
+  }
+}
+
+// class MyPage extends StatefulWidget
+class MyPAge extends StatefulWidget {
+  MyPAge({super.key});
+
+  @override
+  _MyPAgeState createState() {
+    return _MyPAgeState();
+  }
+}
+
+class _MyPAgeState extends State<MyPAge> {
+   late Future<List<Quiz>> quizList;
+
+   @override
+  void initState() {
+    super.initState();
+    quizList = fetchQuiz();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Quiz>>(
+      future: quizList,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Erreur : ${snapshot.error}');
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Text('Aucun quiz disponible.');
+        } else {
+          final quizList = snapshot.data!;
+          return JouerPage(quiz: quizList[0]);
+        }
+      },
     );
   }
 }
