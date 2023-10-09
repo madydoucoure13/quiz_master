@@ -14,6 +14,8 @@ const List<String> list = <String>[
         // Déclarez la clé en dehors de la fonction build.
         final _formKey = GlobalKey<FormState>();
 class QuizCreate extends StatefulWidget {
+  const QuizCreate({super.key});
+
   @override
   State<StatefulWidget> createState() => _QuizCreateState();
 }
@@ -308,7 +310,7 @@ class _QuizCreateState extends State<QuizCreate> {
                                 MaterialStateProperty.all<Color>(Colors.blue),
                             minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
                           ),
-                          child: Text('Terminer'),
+                          child: const Text('Terminer'),
                         ),
                         SizedBox(width: 8),
                         ElevatedButton(
@@ -320,7 +322,7 @@ class _QuizCreateState extends State<QuizCreate> {
                                 MaterialStateProperty.all<Color>(Colors.amber),
                             minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
                           ),
-                          child: Text('Nouvelle question >'),
+                          child: const Text('Nouvelle question >'),
                         ),
                       ],
                     ),
@@ -337,7 +339,7 @@ class _QuizCreateState extends State<QuizCreate> {
   Widget buildResponseCard(int value, String hintText) {
     return Card(
       elevation: 1,
-      color: Color.fromARGB(251, 249, 246, 246),
+      color: const Color.fromARGB(251, 249, 246, 246),
       child: Padding(
         padding: const EdgeInsets.all(6.0),
         child: Row(
@@ -346,11 +348,11 @@ class _QuizCreateState extends State<QuizCreate> {
               child: TextField(
                 decoration: InputDecoration(
                   hintText: hintText,
-                  hintStyle: TextStyle(fontSize: 14),
+                  hintStyle: const TextStyle(fontSize: 14),
                   filled: true,
-                  fillColor: Color.fromARGB(145, 145, 145, 145),
+                  fillColor: const Color.fromARGB(145, 145, 145, 145),
                 ),
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
             Radio(
