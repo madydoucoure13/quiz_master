@@ -297,7 +297,7 @@ class myDetaislContainer extends StatelessWidget{
               Navigator.of(context).pop(); // Fermez la boîte de dialogue
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (BuildContext context) => QuizCreate(),
+                  builder: (BuildContext context) => const QuizCreate(),
                 ),
               );
             },
