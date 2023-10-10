@@ -3,6 +3,8 @@ import 'package:quiz_master/mes_quiz.dart';
 import 'package:quiz_master/quiz_populaire.dart';
 import 'package:quiz_master/page_accueil.dart';
 import 'package:quiz_master/quiz_create.dart';
+import 'package:quiz_master/home.dart';
+import 'package:quiz_master/JouerPage.dart';
 
 void main() {
   runApp(const Quiz());
@@ -19,7 +21,7 @@ class Quiz extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //home: PageAccueil(),
       // home: QuizPopulaire(),
-      home: Mesquiz(),
+      home: JouerPage(),
       // home: QuizCreate(),
 
 
@@ -98,3 +100,15 @@ class Quiz extends StatelessWidget {
 //     );
 //   }
 // }
+// =======
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       debugShowCheckedModeBanner: false,
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: const HomeWidget()
+//     );
+//   }
+// }
+// >>>>>>> 2474ce435723f6041d212db37eb8b9dd06721c68

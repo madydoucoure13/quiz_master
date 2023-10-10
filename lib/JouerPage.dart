@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'modeles/quiz.dart';
 
 Future<List<Quiz>> fetchQuiz() async {
-  final response = await http.get(Uri.parse('http://localhost:9090/quiz/list'), headers: {"Access-Control-Allow-Origin": "*"});
+  final response = await http.get(Uri.parse('http://10.0.2.2:9090/quiz/list'), headers: {"Access-Control-Allow-Origin": "*"});
 
   if (response.statusCode == 200) {
     // Si le serveur renvoie une réponse 200 OK, vous devez analyser une liste de quiz.
