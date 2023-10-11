@@ -20,7 +20,6 @@ class ProfilUtilisateur extends StatelessWidget {
               color: const Color.fromRGBO(3, 151, 202, 1),
               borderRadius: BorderRadius.circular(20),
             ),
-
             child: Align(
               alignment: Alignment.topLeft,
               child: IconButton(
@@ -36,7 +35,7 @@ class ProfilUtilisateur extends StatelessWidget {
           Container(
             height: 135,
             width: 250,
-            margin: const EdgeInsets.only(top: 180, left: 60),
+            margin: const EdgeInsets.only(top: 180, left: 70),
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 236, 232, 232),
               borderRadius: BorderRadius.circular(10),
@@ -69,8 +68,8 @@ class ProfilUtilisateur extends StatelessWidget {
           ),
           // UserProfile entre les deux conteneurs
           const Positioned(
-            top: 140 - 0, // Position verticale pour le milieu
-            left: 145,// Position horizontale pour le milieu
+            top: 140 - 0,
+            left: 155,
             child: CircleAvatar(
               radius: 40,
               backgroundImage: AssetImage('assets/icons/sexe.png'),
@@ -95,9 +94,8 @@ class ProfilUtilisateur extends StatelessWidget {
                   //),
                   CircleAvatar(
                     radius: 15,
-                    backgroundImage: AssetImage('assets/icons/iconEmail.png'),
+                    backgroundImage: AssetImage('assets/icons/em.png'),
                   ),
-
                   SizedBox(width: 0.0),
                   Text(
                     'example@gmail.com',
@@ -119,7 +117,7 @@ class ProfilUtilisateur extends StatelessWidget {
           ),
           // Ligne Pseudo
           Positioned(
-            top: 345, // Position verticale en bas
+            top: 345,
             left: 0.0,
             right: 0.0,
             child: Container(
@@ -196,7 +194,7 @@ class ProfilUtilisateur extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 15,
-                    backgroundImage: AssetImage('assets/icons/barbe.png'),
+                    backgroundImage: AssetImage('assets/icons/tel.png'),
                   ),
                   SizedBox(width: 0.0),
                   Text(
