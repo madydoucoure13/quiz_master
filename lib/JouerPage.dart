@@ -30,8 +30,12 @@ class _JouerPageState extends State<JouerPage> {
     final answerProvider = Provider.of<AnswerProvider>(context, listen: false);
     answerProvider.selectAnswer();
     Future.delayed(const Duration(seconds: 4), () {
+      if(_currentQuestionIndex < widget.quiz.questions.length) {
+        _currentQuestionIndex++;
+      }
       answerProvider.deselectAnswer();
-      testeVariable(widget.quiz.timer);
+      print(timeRemaining);
+      // testeVariable(widget.quiz.timer);
     });
   }
 
@@ -44,7 +48,7 @@ class _JouerPageState extends State<JouerPage> {
     });
     final answerProvider = Provider.of<AnswerProvider>(context, listen: false);
     answerProvider.deselectAnswer();
-    testeVariable(widget.quiz.timer);
+    // testeVariable(widget.quiz.timer);
   }
 
   void _onAnswerSelected(int answerIndex) {
@@ -66,6 +70,7 @@ class _JouerPageState extends State<JouerPage> {
 
   @override
   Widget build(BuildContext context) {
+    final answerProvider = Provider.of<AnswerProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -138,7 +143,11 @@ class _JouerPageState extends State<JouerPage> {
                  Positioned(
                   top: 170,
                   left: 140,
-                  child: QuizTimer(temps: widget.quiz.timer, changeRemaining: testeVariable),
+                  child: QuizTimer(
+                    temps: widget.quiz.timer,
+                    changeRemaining: testeVariable,
+                    stopTimer: answerProvider._isAnswerSelected,
+                  ),
                 ),
               ]),
               Expanded(
@@ -225,7 +234,7 @@ class _JouerPageState extends State<JouerPage> {
                     SizedBox(
                       width: 24, // Largeur fixe pour l'icône
                       child: ConditionalBuilder(
-                        condition: answerProvider._isAnswerSelected,
+                        condition: answerProvider._isAnswerSelected || timeRemaining == 0,
                         builder: (context) {
                           // Vérifiez les conditions et renvoyez l'icône appropriée
                           if (answers[index].correct) {
