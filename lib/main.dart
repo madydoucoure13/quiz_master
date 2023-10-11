@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'JouerPage.dart';
 import 'fetchData.dart';
 import 'modeles/quiz.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+      ChangeNotifierProvider(
+      create: (context) => AnswerProvider(),
+      child: const MyApp(),
+  )
+      );
 }
 
 class MyApp extends StatelessWidget {
