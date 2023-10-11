@@ -1,10 +1,13 @@
 //import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:quiz_master/container/navbar.dart';
 
 import 'container/nav_bar_section.dart';
 
 import 'package:device_preview/device_preview.dart';
+import 'package:provider/provider.dart';
+import 'JouerPage.dart';
 
 void main() {
   runApp(
@@ -14,6 +17,12 @@ void main() {
     )
 
   );
+  runApp(
+      ChangeNotifierProvider(
+      create: (context) => AnswerProvider(),
+      child: const MyApp(),
+  )
+      );
 }
 
 class Quiz extends StatelessWidget {

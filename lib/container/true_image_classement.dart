@@ -28,6 +28,25 @@ class TrueClassementPage extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  // LEs nom
+
+                  const Center(
+                      child: Text(
+                    "Almaimoune \n Elmoctar",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+
+                  // LEs container
+
                   Container(
                     padding: const EdgeInsets.only(
                       top: 5,
@@ -54,16 +73,16 @@ class TrueClassementPage extends StatelessWidget {
                       height: 125,
                     ),
                   ),
-                  const Center(
-                    child: Text(
-                      "Almaimoune \n Elmoctar",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
+                  // const Center(
+                  //   child: Text(
+                  //     "Almaimoune \n Elmoctar",
+                  //     textAlign: TextAlign.center,
+                  //     style: TextStyle(
+                  //       fontSize: 18,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
 
@@ -83,6 +102,25 @@ class TrueClassementPage extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  // LEs nom
+
+                  const Center(
+                      child: Text(
+                    "Diakaridia \n Sy",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+
+                  // LEs container
+
                   Container(
                     padding: const EdgeInsets.only(
                       top: 5,
@@ -109,17 +147,17 @@ class TrueClassementPage extends StatelessWidget {
                       height: 150,
                     ),
                   ),
-                  const Center(
-                    child: Text(
-                      // Almaimoune MOHAMED ELMOCTAR
-                      "Diakaridia \n Sy",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
+                  // const Center(
+                  //   child: Text(
+                  //     // Almaimoune MOHAMED ELMOCTAR
+                  //     "Diakaridia \n Sy",
+                  //     textAlign: TextAlign.center,
+                  //     style: TextStyle(
+                  //       fontSize: 18,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
 
@@ -139,6 +177,25 @@ class TrueClassementPage extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  // LEs nom
+
+                  const Center(
+                      child: Text(
+                    "Doucoure \n Mady",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+
+                  // LEs container
+
                   Container(
                     padding: const EdgeInsets.only(
                       top: 5,
@@ -165,17 +222,17 @@ class TrueClassementPage extends StatelessWidget {
                       height: 115,
                     ),
                   ),
-                  const Center(
-                    child: Text(
-                      // Almaimoune MOHAMED ELMOCTAR
-                      "Doucoure \n Mady",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
+                  // const Center(
+                  //   child: Text(
+                  //     // Almaimoune MOHAMED ELMOCTAR
+                  //     "Doucoure \n Mady",
+                  //     textAlign: TextAlign.center,
+                  //     style: TextStyle(
+                  //       fontSize: 18,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
 
