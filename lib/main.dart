@@ -10,19 +10,16 @@ import 'package:provider/provider.dart';
 import 'JouerPage.dart';
 
 void main() {
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => const Quiz(),
-    )
-
-  );
-  runApp(
-      ChangeNotifierProvider(
-      create: (context) => AnswerProvider(),
-      child: const MyApp(),
-  )
-      );
+  runApp(DevicePreview(
+    enabled: true,
+    builder: (context) => const Quiz(),
+  ));
+  // runApp(
+  //     ChangeNotifierProvider(
+  //     create: (context) => AnswerProvider(),
+  //     child: const MyApp(),
+  // )
+  //     );
 }
 
 class Quiz extends StatelessWidget {
@@ -37,7 +34,6 @@ class Quiz extends StatelessWidget {
       // title: 'Quiz Master',
       debugShowCheckedModeBanner: false,
       home: const NavBarSection(),
-
     );
   }
 }
