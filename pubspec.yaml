@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  percent_indicator: ^4.2.3
   image_picker: ^1.0.4
   flutter:
     sdk: flutter
@@ -38,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   #device_preview: ^1.1.0
   overlay_support: ^2.1.0
+
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +64,7 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+
   assets:
     - assets/icons/iconEmail.png
     - assets/icons/modifier.png
@@ -69,6 +72,9 @@ flutter:
     - assets/icons/date.png
     - assets/icons/barbe.png
     - assets/icons/sexe.png
+    - assets/images/
+    - assets/icons/
+    # - assets/icons/iconEmail.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
