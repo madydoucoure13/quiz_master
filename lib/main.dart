@@ -20,8 +20,8 @@ class Quiz extends StatelessWidget {
       title: 'Quiz Master',
       debugShowCheckedModeBanner: false,
       //home: PageAccueil(),
-      // home: QuizPopulaire(),
-      home: JouerPage(),
+      home: QuizPopulaire(),
+      // home: JouerPage(),
       // home: QuizCreate(),
 
 
