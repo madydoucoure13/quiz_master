@@ -2,8 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:quiz_master/service/quiz_create_service.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
+TextEditingController quizNameController = TextEditingController();
+TextEditingController questionTextController = TextEditingController();
+TextEditingController reponseTextController = TextEditingController();
+
 
 const List<String> list = <String>[
   "Sélectionner une Catégorie",
@@ -51,7 +56,7 @@ class _QuizCreateState extends State<QuizCreate> {
                 ),
                 const PopupMenuItem<String>(
                   value: 'Option 2',
-                  child: Text('Modifier profil'),
+                  child: Text('Modifier profile'),
                 ),
                 const PopupMenuItem<String>(
                   value: 'Option 3',
@@ -173,20 +178,21 @@ class _QuizCreateState extends State<QuizCreate> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                         Padding(
+                          Padding(
                             padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
                             child: Row(
                               children: [
-                                const Expanded(
+                                 Expanded(
                                   child: TextField(
-                                    decoration: InputDecoration(
+                                   controller: quizNameController, 
+                                    decoration: const InputDecoration(
                                       hintText: 'Nom de la Quiz',
                                       hintStyle: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -282,6 +288,7 @@ class _QuizCreateState extends State<QuizCreate> {
                       ),
                     ),
 
+
                   const Text(
                     'Faites vos propositions ici et indiquez la/les bonne(s) réponse(s)',
                     style: TextStyle(fontSize: 14),
@@ -302,27 +309,45 @@ class _QuizCreateState extends State<QuizCreate> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton(
-                          onPressed: () {
-                            // Logique à exécuter lorsque le premier bouton est pressé.
-                          },
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.blue),
-                            minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
+                          onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    // Les données du formulaire sont valides, soumettez-les à l'API
+                                    final quizService = QuizCreateService();
+                                    final formData = {
+                                      'titre':'t',
+                                      'question': 'q', // Remplacez par les données réelles
+                                       'reponses':'r'
+                                    };
+
+                                    final success = await quizService.submitData(formData);
+
+                                    if (success) {
+                                      // Les données ont été soumises avec succès, effectuez des actions supplémentaires si nécessaire
+                                      // Réinitialisez le formulaire, affichez un message de succès, etc.
+                                    }
+                                  }
+                                },
+                                    style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(Colors.blue),
+                                  minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
+                                ),
+                                child: const Text('Terminer'),
+                              ),
+                              SizedBox(width: 8),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Logique à exécuter lorsque le deuxième bouton est pressé.
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(Colors.amber),
+                                  minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
+                                ),
+                                child: const Text('Nouvelle question >'),
+                              ),
+                            ],
                           ),
-                          child: const Text('Terminer'),
-                        ),
-                        SizedBox(width: 8),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Logique à exécuter lorsque le deuxième bouton est pressé.
-                          },
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.amber),
-                            minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
-                          ),
-                          child: const Text('Nouvelle question >'),
                         ),
                       ],
                     ),
@@ -330,11 +355,8 @@ class _QuizCreateState extends State<QuizCreate> {
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
+          );
+        }
 
   Widget buildResponseCard(int value, String hintText) {
     return Card(
@@ -353,6 +375,7 @@ class _QuizCreateState extends State<QuizCreate> {
                   fillColor: const Color.fromARGB(145, 145, 145, 145),
                 ),
                 style: const TextStyle(fontSize: 14),
+                //name: 'r',
               ),
             ),
             Radio(
