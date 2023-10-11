@@ -31,15 +31,20 @@ class _JouerPageState extends State<JouerPage> {
     answerProvider.selectAnswer();
     Future.delayed(const Duration(seconds: 4), () {
       answerProvider.deselectAnswer();
-      _currentQuestionIndex++;
+      testeVariable(widget.quiz.timer);
     });
   }
 
   void _onSkipQuestion() {
     setState(() {
-      _currentQuestionIndex++;
+      if(_currentQuestionIndex < widget.quiz.questions.length) {
+        _currentQuestionIndex++;
+      }
       _isButtonVisible = true;
     });
+    final answerProvider = Provider.of<AnswerProvider>(context, listen: false);
+    answerProvider.deselectAnswer();
+    testeVariable(widget.quiz.timer);
   }
 
   void _onAnswerSelected(int answerIndex) {
@@ -48,37 +53,15 @@ class _JouerPageState extends State<JouerPage> {
     // return question.reponses[answerIndex];
   }
 
+  Reponse selectedResponse(int responseIndex) {
+   return widget.quiz.questions[_currentQuestionIndex - 1].reponses[responseIndex];
+  }
+
   @override
   void initState() {
-    list();
     super.initState();
     questionLength;
     timeRemaining = widget.quiz.timer;
-  }
-
-  void list() {
-    try {
-        print('ID: ${widget.quiz.idQuiz}');
-        print('Titre: ${widget.quiz.titre}');
-        print('Timer: ${widget.quiz.timer}');
-        print('Utilisateur: ${widget.quiz.utilisateur.nom} ${widget.quiz.utilisateur.prenom}');
-        print('Questions:');
-        final List<Question> quetions = widget.quiz.questions;
-        // final List<Reponse> responses = que.reponses;
-        for (final question in quetions) {
-          print('  Question ID: ${question.idQuestion}');
-          print('  Contenu: ${question.contenue}');
-          final List<Reponse> responses = question.reponses;
-          for (final response in responses) {
-            print('    Réponse ID: ${response.idReponse}');
-            print('    Contenu: ${response.contenue}');
-            print('    Correcte: ${response.correct}');
-          }
-          print('-----------------------');
-        }
-    } catch (e) {
-      print('Une erreur s\'est produite lors de la récupération des quiz : $e');
-    }
   }
 
   @override
@@ -106,8 +89,8 @@ class _JouerPageState extends State<JouerPage> {
                         width: 300,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                          image: AssetImage('assets/images/jouer.png'),
-                          fit: BoxFit.fill,
+                            image: AssetImage('assets/images/jouer.png'),
+                            fit: BoxFit.fill,
                         )),
                       ),
                     ),
@@ -117,7 +100,7 @@ class _JouerPageState extends State<JouerPage> {
                   widthFactor: 0.9,
                   child: Container(
                     height: 140,
-                    margin: const EdgeInsets.fromLTRB(20, 230, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(20, 230, 0, 10),
                     padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
                     decoration: ShapeDecoration(
                       color: Colors.white,
@@ -155,7 +138,7 @@ class _JouerPageState extends State<JouerPage> {
                  Positioned(
                   top: 170,
                   left: 140,
-                  child: QuizTimer(temps: 30, changeRemaining: testeVariable),
+                  child: QuizTimer(temps: widget.quiz.timer, changeRemaining: testeVariable),
                 ),
               ]),
               Expanded(
@@ -203,45 +186,62 @@ class _JouerPageState extends State<JouerPage> {
   Widget _buildAnswers() {
     final List<Reponse> answers = widget.quiz.questions[_currentQuestionIndex - 1].reponses;
     final answerProvider = Provider.of<AnswerProvider>(context);
-     Reponse? responseSelected;
+     // Reponse? responseSelected;
     return ListView.builder(
+        padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
         itemCount: answers.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
               answerProvider.selectAnswer();
-              responseSelected = answers[index];
+              // responseSelected = selectedResponse(index);
               _onTimerFinished();
             },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-              children: [
-                Text((index + 1).toString()),
-                Expanded(
-                  child: Text(answers[index].contenue),
+            child: Container(
+                margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                height: 37,
+                decoration: ShapeDecoration(
+                  color: const Color(0xFFF7F7F7),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+                  shadows: const [
+                    BoxShadow(
+                      color: Color(0xFF10B2E9),
+                      blurRadius: 4,
+                      offset: Offset(0, 0),
+                      spreadRadius: 0,
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: 24, // Largeur fixe pour l'icône
-                  child: ConditionalBuilder(
-                    condition: answerProvider._isAnswerSelected,
-                    builder: (context) {
-                      // Vérifiez les conditions et renvoyez l'icône appropriée
-                      if (answers[index].correct) {
-                        return const Icon(Icons.check_circle); // Réponse correcte sélectionnée
-                      } else if (!answers[index].correct && answers[index] == responseSelected) {
-                        return const Icon(Icons.check_circle); // Réponse incorrecte sélectionnée
-                      } else {
-                        return const SizedBox(); // Réponse incorrecte non sélectionnée (espace vide)
-                      }
-                    },
-                    fallback: null,
-                  ),
-                ),
-              ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(0, 0, 15,0),
+                      child: Text((index + 1).toString()),
+                    ),
+                    Expanded(
+                      child: Text(answers[index].contenue),
+                    ),
+                    SizedBox(
+                      width: 24, // Largeur fixe pour l'icône
+                      child: ConditionalBuilder(
+                        condition: answerProvider._isAnswerSelected,
+                        builder: (context) {
+                          // Vérifiez les conditions et renvoyez l'icône appropriée
+                          if (answers[index].correct) {
+                            return const Icon(Icons.check_circle); // Réponse correcte sélectionnée
+                          } else if (!answers[index].correct &&  answers[index] == selectedResponse(index)) {
+                            return const Icon(Icons.cancel); // Réponse incorrecte sélectionnée
+                          } else {
+                            return const SizedBox(); // Réponse incorrecte non sélectionnée (espace vide)
+                          }
+                        },
+                        fallback: null,
+                      ),
+                    ),
+                  ],
+                )
             )
-
-
           );
         }
     );
