@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quiz_master/mes_quiz.dart';
 import 'package:quiz_master/quiz_populaire.dart';
 import 'package:quiz_master/page_accueil.dart';
 import 'package:quiz_master/quiz_create.dart';
 import 'package:quiz_master/home.dart';
 import 'package:quiz_master/JouerPage.dart';
+import 'fetchData.dart';
+import 'modeles/quiz.dart';
 
 void main() {
-  runApp(const Quiz());
+  runApp(
+      ChangeNotifierProvider(
+      create: (context) => AnswerProvider(),
+      child: const Quiz(),
+  )
+      );
 }
 
 class Quiz extends StatelessWidget {

@@ -4,8 +4,9 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 class QuizTimer extends StatefulWidget {
   final int temps;
+  final Function changeRemaining;
 
-  const QuizTimer({Key? key, required this.temps}) : super(key: key);
+  const QuizTimer({Key? key, required this.temps, required this.changeRemaining}) : super(key: key);
 
   @override
   _QuizTimerState createState() => _QuizTimerState();
@@ -21,6 +22,7 @@ class _QuizTimerState extends State<QuizTimer> {
     Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         tempsRestant--;
+        widget.changeRemaining(tempsRestant);
       });
       if (tempsRestant == 0) {
         timer.cancel();
