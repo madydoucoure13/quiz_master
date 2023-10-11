@@ -72,13 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-<<<<<<< HEAD
-                MaterialPageRoute(
-                    builder: (context) => const Dashboard()),
-
-=======
                 MaterialPageRoute(builder: (context) => ProfilUtilisateur()),
->>>>>>> c7c2c81787431121e245d9450a411ace743df40c
               );
             }),
       ),
