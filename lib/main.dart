@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_master/dashboard.dart';
 
-import 'package:quiz_master/home.dart';
-
 import 'package:quiz_master/profil_utilisateur.dart';
-import 'package:device_preview/device_preview.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -26,3 +24,4 @@ class MyApp extends StatelessWidget {
         home: const Dashboard());
   }
 }
+
