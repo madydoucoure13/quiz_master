@@ -6,10 +6,10 @@ import 'package:quiz_master/home.dart';
 import 'package:quiz_master/profil_utilisateur.dart';
 import 'package:device_preview/device_preview.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -17,14 +17,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomeWidget()
-      // home: const Dashboard()
-    );
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: const HomeWidget()
+        home: const Dashboard());
   }
 }
-
