@@ -47,13 +47,23 @@ class TrueClassementPage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.only(
                         top: 0, right: 0, bottom: 0, left: 0),
-                    margin: const EdgeInsets.only(top: 5),
+                    // margin: const EdgeInsets.only(top: 0),
                     child: Image.asset(
                       "assets/images/med2.png",
                       width: 125,
                       height: 125,
                     ),
                   ),
+                  const Center(
+                    child: Text(
+                      "Almaimoune \n Elmoctar",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
                 ],
               ),
 
@@ -99,6 +109,17 @@ class TrueClassementPage extends StatelessWidget {
                       height: 150,
                     ),
                   ),
+                  const Center(
+                    child: Text(
+                      // Almaimoune MOHAMED ELMOCTAR
+                      "Diakaridia \n Sy",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
                 ],
               ),
 
@@ -137,20 +158,30 @@ class TrueClassementPage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.only(
                         top: 0, right: 0, bottom: 0, left: 0),
-                    margin: const EdgeInsets.only(top: 5),
+                    // margin: const EdgeInsets.only(top: 5),
                     child: Image.asset(
                       "assets/images/med3.png",
                       width: 115,
                       height: 115,
                     ),
                   ),
+                  const Center(
+                    child: Text(
+                      // Almaimoune MOHAMED ELMOCTAR
+                      "Doucoure \n Mady",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
                 ],
               ),
 
               ///////////////////
             ],
           ),
-
           const Column(
             children: [
               Padding(
@@ -164,19 +195,6 @@ class TrueClassementPage extends StatelessWidget {
               ClassementReste(),
             ],
           )
-          // const Column(
-          //   children: [
-          //     Padding(
-          //       padding: EdgeInsets.only(
-          //         top: 0,
-          //         right: 0,
-          //         bottom: 0,
-          //         left: 0,
-          //       ),
-          //     ),
-          //     MedailleSection(),
-          //   ],
-          // ),
         ],
       ),
     );

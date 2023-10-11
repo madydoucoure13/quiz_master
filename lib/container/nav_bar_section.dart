@@ -53,7 +53,8 @@ class _NavBarSectionState extends State<NavBarSection> {
                 child: Center(
                   child: TextButton(
                     style: TextButton.styleFrom(
-                        minimumSize: const Size(double.infinity, double.infinity)),
+                        minimumSize:
+                            const Size(double.infinity, double.infinity)),
                     onPressed: () {
                       selectedPage(0);
                     },
@@ -73,7 +74,8 @@ class _NavBarSectionState extends State<NavBarSection> {
                 child: Center(
                   child: TextButton(
                       style: TextButton.styleFrom(
-                          minimumSize: const Size(double.infinity, double.infinity)),
+                          minimumSize:
+                              const Size(double.infinity, double.infinity)),
                       onPressed: () {
                         selectedPage(1);
                       },
@@ -90,7 +92,7 @@ class _NavBarSectionState extends State<NavBarSection> {
           height: 1,
           color: Colors.black.withOpacity(0.3),
         ),
-        (selectedIndex == 1) ? const ScorePage() : const ClassementPage()
+        (selectedIndex == 0) ? const ScorePage() : const ClassementPage()
       ])),
       // body: const Center(
       //   child: Text('Contenu de la page'),
