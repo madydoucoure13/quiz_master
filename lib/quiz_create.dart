@@ -2,13 +2,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:quiz_master/quiz_create_state.dart';
+import 'package:quiz_master/service/api_service.dart';
 import 'package:quiz_master/service/quiz_create_service.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 TextEditingController quizNameController = TextEditingController();
 TextEditingController questionTextController = TextEditingController();
-TextEditingController reponseTextController = TextEditingController();
-
+TextEditingController reponseTextController1 = TextEditingController(); // Nommez les contrôleurs correctement
+TextEditingController reponseTextController2 = TextEditingController();
+TextEditingController reponseTextController3 = TextEditingController();
+TextEditingController reponseTextController4 = TextEditingController();
+TextEditingController responseTimeController = TextEditingController(); // Vous avez oublié d'ajouter ce contrôleur
 
 const List<String> list = <String>[
   "Sélectionner une Catégorie",
@@ -16,8 +21,9 @@ const List<String> list = <String>[
   'Three',
   'Four',
 ];
-        // Déclarez la clé en dehors de la fonction build.
-        final _formKey = GlobalKey<FormState>();
+// Déclarez la clé en dehors de la fonction build.
+final _formKey = GlobalKey<FormState>();
+List<QuestionData> quizQuestions = []; // Déclarez la liste de questions
 class QuizCreate extends StatefulWidget {
   const QuizCreate({super.key});
 
@@ -111,31 +117,32 @@ class _QuizCreateState extends State<QuizCreate> {
                 ),
               ),
             ),
-
             Positioned(
-                top: 10.0,
-                right: 20.0,
-                child: Container(
-                  height: 50.0,
-                  width: 50.0,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/images/profil.png"),
-                    ),
+              top: 10.0,
+              right: 20.0,
+              child: Container(
+                height: 50.0,
+                width: 50.0,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/images/profil.png"),
                   ),
                 ),
               ),
-
-
-           Row(
+            ),
+            Row(
               children: [
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.only(top: 100, left: 55, right: 55),
+                    margin:
+                        const EdgeInsets.only(top: 100, left: 55, right: 55),
                     padding: const EdgeInsets.only(
-                      left: 10, top: 0, right: 0, bottom: 0,
+                      left: 10,
+                      top: 0,
+                      right: 0,
+                      bottom: 0,
                     ),
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(145, 145, 145, 145),
@@ -160,7 +167,6 @@ class _QuizCreateState extends State<QuizCreate> {
                 // Autres widgets horizontaux ici
               ],
             ),
-
             Container(
               margin: const EdgeInsets.only(top: 150, left: 40, right: 40),
               padding: const EdgeInsets.all(10),
@@ -173,122 +179,127 @@ class _QuizCreateState extends State<QuizCreate> {
                     style: TextStyle(fontSize: 14),
                   ),
                   Card(
-                      elevation: 0,
-                      color: Color.fromARGB(145, 145, 145, 145),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-                            child: Row(
-                              children: [
-                                 Expanded(
-                                  child: TextField(
-                                   controller: quizNameController, 
-                                    decoration: const InputDecoration(
-                                      hintText: 'Nom de la Quiz',
-                                      hintStyle: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    style: const TextStyle(
+                    elevation: 0,
+                    color: Color.fromARGB(145, 145, 145, 145),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: quizNameController,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Nom de la Quiz',
+                                    hintStyle: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // Code à exécuter lorsque l'icône est cliquée
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text("Définir un temps de réponse"),
-                                          content: Form(
-                                            key: _formKey,
-                                            child: TextFormField(
-                                              decoration: const InputDecoration(
-                                                hintText: 'Durée',
-                                                hintStyle: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              style: const TextStyle(
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  // Code à exécuter lorsque l'icône est cliquée
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                            "Définir un temps de réponse"),
+                                        content: Form(
+                                          key: _formKey,
+                                          child: TextFormField(
+                                            decoration: const InputDecoration(
+                                              hintText: 'Durée',
+                                              hintStyle: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
                                               ),
-                                              keyboardType: TextInputType.number,
-                                              validator: (value) {
-                                                if (value == null || value.isEmpty) {
-                                                  return 'Veuillez entrer une valeur.';
-                                                }
-                                                final numericValue = int.tryParse(value);
-                                                if (numericValue == null || numericValue > 20) {
-                                                  return 'La valeur doit être un nombre inférieur ou égal à 20.';
-                                                }
-                                                return null;
-                                              },
-                                              inputFormatters: <TextInputFormatter>[
-                                                FilteringTextInputFormatter.digitsOnly,
-                                              ],
                                             ),
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            keyboardType: TextInputType.number,
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Veuillez entrer une valeur.';
+                                              }
+                                              final numericValue =
+                                                  int.tryParse(value);
+                                              if (numericValue == null ||
+                                                  numericValue > 20) {
+                                                return 'La valeur doit être un nombre inférieur ou égal à 20.';
+                                              }
+                                              return null;
+                                            },
+                                            inputFormatters: <TextInputFormatter>[
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly,
+                                            ],
                                           ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                if (_formKey.currentState!.validate()) {
-                                                  Navigator.of(context).pop();
-                                                }
-                                              },
-                                              child: const Text("Valider"),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: const Icon(
-                                    Icons.alarm,
-                                    color: Colors.blue,
-                                  ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                Navigator.of(context).pop();
+                                              }
+                                            },
+                                            child: const Text("Valider"),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Icon(
+                                  Icons.alarm,
+                                  color: Colors.blue,
                                 ),
-                              ],
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(6.0),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'La Question',
-                                hintStyle: TextStyle(fontSize: 14),
                               ),
-                              style: TextStyle(fontSize: 14),
-                            ),
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Row(
-                              children: [
-                                ElevatedButton(
-                                  onPressed: _getImage,
-                                  child: Text('Sélectionner une image'),
-                                ),
-                                SizedBox(width: 8),
-                                _image != null
-                                    ? Image.file(File(_image!.path),
-                                        width: 50, height: 50)
-                                    : SizedBox.shrink(),
-                              ],
+                        ),
+                         Padding(
+                          padding: EdgeInsets.all(6.0),
+                          child: TextField(
+                            controller: questionTextController,
+                            decoration: const InputDecoration(
+                              hintText: 'La Question',
+                              hintStyle: TextStyle(fontSize: 14),
                             ),
+                            style: TextStyle(fontSize: 14),
                           ),
-                        ],
-                      ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: _getImage,
+                                child: Text('Sélectionner une image'),
+                              ),
+                              SizedBox(width: 8),
+                              _image != null
+                                  ? Image.file(File(_image!.path),
+                                      width: 50, height: 50)
+                                  : SizedBox.shrink(),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-
-
+                  ),
                   const Text(
                     'Faites vos propositions ici et indiquez la/les bonne(s) réponse(s)',
                     style: TextStyle(fontSize: 14),
@@ -310,44 +321,51 @@ class _QuizCreateState extends State<QuizCreate> {
                       children: [
                         ElevatedButton(
                           onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    // Les données du formulaire sont valides, soumettez-les à l'API
-                                    final quizService = QuizCreateService();
-                                    final formData = {
-                                      'titre':'t',
-                                      'question': 'q', // Remplacez par les données réelles
-                                       'reponses':'r'
-                                    };
+  // Construire l'objet QuestionData à partir des données du formulaire.
+                                  final apiService = ApiService();
+                                  final questionData = QuestionData(
+                                    questionText: questionTextController.text,
+                                    imagePath: _image?.path ?? '', // Le chemin de l'image sélectionnée
+                                    responses: [
+                                      reponseTextController1.text,
+                                      reponseTextController2.text,
+                                      reponseTextController3.text,
+                                      reponseTextController4.text,
+                                    ],
+                                  );
 
-                                    final success = await quizService.submitData(formData);
+                                  // Envoyer la question à l'API.
+                                  final response = await apiService.postQuestion(questionData);
 
-                                    if (success) {
-                                      // Les données ont été soumises avec succès, effectuez des actions supplémentaires si nécessaire
-                                      // Réinitialisez le formulaire, affichez un message de succès, etc.
-                                    }
+                                  // Gérer la réponse de l'API.
+                                  if (response.statusCode == 200) {
+                                    // La question a été envoyée avec succès.
+                                  } else {
+                                    // Une erreur s'est produite lors de l'envoi de la question.
                                   }
                                 },
-                                    style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(Colors.blue),
-                                  minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
-                                ),
-                                child: const Text('Terminer'),
-                              ),
-                              SizedBox(width: 8),
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Logique à exécuter lorsque le deuxième bouton est pressé.
-                                },
-                                style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(Colors.amber),
-                                  minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)), // Définir la largeur et la hauteur souhaitées
-                                ),
-                                child: const Text('Nouvelle question >'),
-                              ),
-                            ],
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.blue),
+                            minimumSize: MaterialStateProperty.all<Size>(Size(
+                                180,
+                                40)), // Définir la largeur et la hauteur souhaitées
                           ),
+                          child: const Text('Terminer'),
+                        ),
+                        SizedBox(width: 8),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Logique à exécuter lorsque le deuxième bouton est pressé.
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.amber),
+                            minimumSize: MaterialStateProperty.all<Size>(Size(
+                                180,
+                                40)), // Définir la largeur et la hauteur souhaitées
+                          ),
+                          child: const Text('Nouvelle question >'),
                         ),
                       ],
                     ),
@@ -355,8 +373,11 @@ class _QuizCreateState extends State<QuizCreate> {
                 ],
               ),
             ),
-          );
-        }
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget buildResponseCard(int value, String hintText) {
     return Card(
@@ -415,4 +436,28 @@ class CustomClipPath extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+//================================================== instances create
+      Future<void> _onSubmitQuiz() async {
+        if (_formKey.currentState!.validate()) {
+          final quizData = QuizData(
+            quizName: quizNameController.text,
+            responseTime: int.parse(responseTimeController.text),
+            questions: quizQuestions,
+          );
+
+          // Ensuite, vous pouvez soumettre quizData à votre service de création de quiz.
+          // Passez quizData à la méthode appropriée dans votre service.
+          final quizService = QuizCreateService();
+          final success = await quizService.submitData(quizData);
+
+          if (success) {
+            // Les données ont été soumises avec succès, effectuez des actions supplémentaires si nécessaire
+            // Réinitialisez le formulaire, affichez un message de succès, etc.
+            quizNameController.clear();
+            responseTimeController.clear();
+            quizQuestions.clear();
+          }
+        }
 }
