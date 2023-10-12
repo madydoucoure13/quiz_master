@@ -8,6 +8,7 @@ import 'package:quiz_master/home.dart';
 import 'package:quiz_master/JouerPage.dart';
 import 'fetchData.dart';
 import 'modeles/quiz.dart';
+import 'modeles/navigation.dart';
 
 void main() {
   runApp(
@@ -28,7 +29,8 @@ class Quiz extends StatelessWidget {
       title: 'Quiz Master',
       debugShowCheckedModeBanner: false,
       //home: PageAccueil(),
-      home: QuizPopulaire(),
+      // home: QuizPopulaire(),
+      home: NavBar(),
       // home: JouerPage(),
       // home: QuizCreate(),
 
