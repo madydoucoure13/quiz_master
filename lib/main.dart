@@ -1,3 +1,5 @@
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quiz_master/mes_quiz.dart';
@@ -42,9 +44,15 @@ class Quiz extends StatelessWidget {
   }
 }
 
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key, required this.title});
-//   final String title;
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+  
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
+  //final String title;
 
 //   @override
 //   State<MyHomePage> createState() => _MyHomePageState();
@@ -124,3 +132,4 @@ class Quiz extends StatelessWidget {
 //   }
 // }
 // >>>>>>> 2474ce435723f6041d212db37eb8b9dd06721c68
+}
