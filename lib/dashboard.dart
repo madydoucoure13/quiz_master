@@ -15,8 +15,11 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: ,
+        leading: Image.asset("assets/icons/quiz_master.png"),
         backgroundColor: Color(0xFF10B2E9),
+        actions: [
+          IconButton(onPressed: (){}, icon: const Icon(Icons.menu))
+        ],
       ),
       body: SingleChildScrollView(
         child: SafeArea(
