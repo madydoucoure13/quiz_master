@@ -6,8 +6,15 @@ class QuizTimer extends StatefulWidget {
   final int temps;
   final Function changeRemaining;
   late  bool stopTimer;
+  final bool isLastQuestion;
 
-   QuizTimer({Key? key, required this.temps, required this.changeRemaining, required this.stopTimer}) : super(key: key);
+   QuizTimer({
+     Key? key,
+     required this.temps,
+     required this.changeRemaining,
+     required this.stopTimer,
+     required this.isLastQuestion
+   }) : super(key: key);
 
   @override
   _QuizTimerState createState() => _QuizTimerState();
@@ -20,7 +27,6 @@ class _QuizTimerState extends State<QuizTimer> {
   void initState() {
     super.initState();
     tempsRestant = widget.temps;
-    // stopTimer = false;
     Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         tempsRestant--;
@@ -28,28 +34,29 @@ class _QuizTimerState extends State<QuizTimer> {
       });
       if (tempsRestant == 0 || widget.stopTimer == true) {
         timer.cancel();
-        Future.delayed(const Duration(seconds: 3), () {
-          widget.stopTimer = false;
-          initState();
-        });
+        restartTimer();
       }
     });
   }
 
   void restartTimer() {
-      if (tempsRestant == 0 || widget.stopTimer == true) {
-
-        Future.delayed(const Duration(seconds: 4), () {
-          tempsRestant = widget.temps;
-          Timer.periodic(const Duration(seconds: 1), (timer) {
-            setState(() {
-              tempsRestant--;
-              widget.changeRemaining(tempsRestant);
-            });
-            timer.cancel();
+    if (tempsRestant <= 0 || widget.stopTimer) {
+      Future.delayed(const Duration(seconds: 3), () {
+        tempsRestant = widget.temps;
+        Timer.periodic(const Duration(seconds: 1), (timer) {
+          setState(() {
+            tempsRestant--;
+            widget.changeRemaining(tempsRestant);
           });
+          if (tempsRestant <= 0 || widget.stopTimer) {
+            timer.cancel();
+            if(!widget.isLastQuestion) {
+              restartTimer(); // Restart the timer if needed
+            }
+          }
         });
-      }
+      });
+    }
   }
 
   @override

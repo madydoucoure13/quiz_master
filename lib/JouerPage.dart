@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:quiz_master/fetchData.dart';
 import 'QuizTimer.dart';
+import 'modeles/participer.dart';
 import 'modeles/question.dart';
 import 'modeles/quiz.dart';
 import 'modeles/reponse.dart';
@@ -19,11 +21,15 @@ class JouerPage extends StatefulWidget {
 class _JouerPageState extends State<JouerPage> {
   int _currentQuestionIndex = 1;
   late int timeRemaining;
-  bool _isButtonVisible = true;
+  bool _isQuestionFinished = false;
+  int selectedResponseIndex= -1;
   late  int questionLength = widget.quiz.questions.length;
 
   void testeVariable(int newValue){
     timeRemaining = newValue;
+    if (timeRemaining == 0) {
+      _onTimerFinished();
+    }
   }
 
   void _onTimerFinished() {
@@ -32,34 +38,51 @@ class _JouerPageState extends State<JouerPage> {
     Future.delayed(const Duration(seconds: 4), () {
       if(_currentQuestionIndex < widget.quiz.questions.length) {
         _currentQuestionIndex++;
+      } if(_currentQuestionIndex == widget.quiz.questions.length) {
+        setState(() {
+          _isQuestionFinished = true;
+          answerProvider._isAnswerSelected = false;
+        });
       }
       answerProvider.deselectAnswer();
-      print(timeRemaining);
-      // testeVariable(widget.quiz.timer);
+      answerProvider._score += (timeRemaining * 100);
     });
   }
 
+  void _onQuizFinished() {
+    final answerProvider = Provider.of<AnswerProvider>(context, listen: false);
+    Participer participer = Participer(
+      score: answerProvider.score,
+      level: 1,
+      terminer: true,
+      userId: 1,
+      quizId: widget.quiz.idQuiz,);
+    print(participer.quizId);
+    createParticiper(participer);
+    answerProvider._score = 0;
+  }
+
   void _onSkipQuestion() {
+    final answerProvider = Provider.of<AnswerProvider>(context, listen: false);
     setState(() {
       if(_currentQuestionIndex < widget.quiz.questions.length) {
         _currentQuestionIndex++;
+        answerProvider._isAnswerSelected = true;
+      } else {
+        answerProvider._isAnswerSelected = false;
+        testeVariable(-1);
       }
-      _isButtonVisible = true;
     });
-    final answerProvider = Provider.of<AnswerProvider>(context, listen: false);
     answerProvider.deselectAnswer();
     // testeVariable(widget.quiz.timer);
   }
 
-  void _onAnswerSelected(int answerIndex) {
-    final Question question = widget.quiz.questions[_currentQuestionIndex - 1];
-    _onTimerFinished();
-    // return question.reponses[answerIndex];
+  void _onAnswerSelected(int index) {
+    setState(() {
+      selectedResponseIndex = index;
+    });
   }
 
-  Reponse selectedResponse(int responseIndex) {
-   return widget.quiz.questions[_currentQuestionIndex - 1].reponses[responseIndex];
-  }
 
   @override
   void initState() {
@@ -140,13 +163,14 @@ class _JouerPageState extends State<JouerPage> {
                     ),
                   ),
                 ),
-                 Positioned(
+                Positioned(
                   top: 170,
-                  left: 140,
+                  left: (MediaQuery.of(context).size.width - 120) / 2,
                   child: QuizTimer(
                     temps: widget.quiz.timer,
                     changeRemaining: testeVariable,
                     stopTimer: answerProvider._isAnswerSelected,
+                    isLastQuestion: _isQuestionFinished,
                   ),
                 ),
               ]),
@@ -154,11 +178,11 @@ class _JouerPageState extends State<JouerPage> {
                 child: _buildAnswers(),
               ),
               TextButton(
-                  onPressed: _onSkipQuestion,
-                  child: const Text(
-                    'Passer  >>',
+                  onPressed: _isQuestionFinished ? _onQuizFinished : _onSkipQuestion,
+                  child:  Text(
+                    _isQuestionFinished ? 'Terminer' : 'Passer  >>',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFF060A5B),
                       fontSize: 20,
                       fontFamily: 'Poppins',
@@ -175,9 +199,6 @@ class _JouerPageState extends State<JouerPage> {
   }
 
   Widget _buildQuestion() {
-    if (timeRemaining == 0) {
-      _onTimerFinished();
-    }
     final Question question = widget.quiz.questions[_currentQuestionIndex - 1];
     return Text(
         question.contenue,
@@ -195,7 +216,6 @@ class _JouerPageState extends State<JouerPage> {
   Widget _buildAnswers() {
     final List<Reponse> answers = widget.quiz.questions[_currentQuestionIndex - 1].reponses;
     final answerProvider = Provider.of<AnswerProvider>(context);
-     // Reponse? responseSelected;
     return ListView.builder(
         padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
         itemCount: answers.length,
@@ -203,7 +223,7 @@ class _JouerPageState extends State<JouerPage> {
           return GestureDetector(
             onTap: () {
               answerProvider.selectAnswer();
-              // responseSelected = selectedResponse(index);
+              _onAnswerSelected(index);
               _onTimerFinished();
             },
             child: Container(
@@ -238,9 +258,9 @@ class _JouerPageState extends State<JouerPage> {
                         builder: (context) {
                           // Vérifiez les conditions et renvoyez l'icône appropriée
                           if (answers[index].correct) {
-                            return const Icon(Icons.check_circle); // Réponse correcte sélectionnée
-                          } else if (!answers[index].correct &&  answers[index] == selectedResponse(index)) {
-                            return const Icon(Icons.cancel); // Réponse incorrecte sélectionnée
+                            return const Icon(Icons.check_circle, color: Colors.green); // Réponse correcte sélectionnée
+                          } else if (!answers[index].correct && (selectedResponseIndex + 1) == answers[index].idReponse) {
+                            return const Icon(Icons.cancel, color: Colors.red,); // Réponse incorrecte sélectionnée
                           } else {
                             return const SizedBox(); // Réponse incorrecte non sélectionnée (espace vide)
                           }
@@ -259,7 +279,7 @@ class _JouerPageState extends State<JouerPage> {
 
 class AnswerProvider with ChangeNotifier {
   bool _isAnswerSelected = false;
-  final int _score = 0;
+  late int _score = 0;
 
   bool get isAnswerSelected => _isAnswerSelected;
   int get score => _score;
