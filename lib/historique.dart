@@ -118,7 +118,7 @@ class _HistoriqueState extends State<Historique> {
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          "https://i.imgur.com/BoN9kdC.png",
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrYQPfbCGTgEzc3N-aUx8nkhv61Q-2W133EkPiGFlcKI3Cm5nNtw5YoromXsIqgC6pRPk&usqp=CAU.jpg",
                         ),
                       ),
                     ),
