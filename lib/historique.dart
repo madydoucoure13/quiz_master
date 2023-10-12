@@ -66,28 +66,59 @@ class _HistoriqueState extends State<Historique> {
         ],
       ),
       body: CustomScrollView(
-        slivers: <Widget>[
+        slivers: [
           SliverToBoxAdapter(
             child: Stack(
               children: [
-                ClipPath(
-                  clipper: MySecondCustomClipper(),
-                  child: Container(
-                    height: 150.0,
-                    color: Colors.yellow, // Couleur jaune de l'arrière-plan
+                Container(
+                  decoration: const BoxDecoration(),
+                  child: ClipPath(
+                    clipper: Courbe(), // Utilisez votre classe CustomClipPath comme clipper
+                    child: Container(
+                      height: 90.0, // Ajustez la hauteur selon vos besoins
+                      color: const Color.fromARGB(255, 243, 201, 33), // Couleur de la barre info user
+                    ),
                   ),
                 ),
-                ClipPath(
-                  clipper: MyCustomClipper(),
+                Container(
+                  decoration: const BoxDecoration(),
+                  child: ClipPath(
+                    clipper: Courbe(), // Utilisez votre classe CustomClipPath comme clipper
+                    child: Container(
+                      height: 80.0, // Ajustez la hauteur selon vos besoins
+                      color: Colors.blue, // Couleur de la barre info user
+                    ),
+                  ),
+                ),
+                // Nom user
+                Positioned(
+                  top: 20.0,
+                  left: 20.0,
                   child: Container(
-                    height: 149.8,
-                    color: Colors.blue, // Couleur bleue de l'arrière-plan
-                    child: Center(
-                      child: Text(
-                        'SY Diakaridia',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 9.0, // Taille de police agrandie
+                    decoration: const BoxDecoration(),
+                    child: const Text(
+                      'Aichata DICKO',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                // Pour la photo de profil
+                Positioned(
+                  top: 10.0,
+                  right: 20.0,
+                  child: Container(
+                    height: 50.0,
+                    width: 50.0,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          "https://i.imgur.com/BoN9kdC.png",
                         ),
                       ),
                     ),
@@ -177,8 +208,8 @@ class _HistoriqueState extends State<Historique> {
                       ),
                       subtitle: Text('Catégorie: ${item.category}\nJoueur: ${item.playerName}'),
                       trailing: Container(
-                        padding: EdgeInsets.all(6.0), // Espacement autour de l'icône réduite
-                        decoration: BoxDecoration(
+                        padding: const EdgeInsets.all(6.0), // Espacement autour de l'icône réduite
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.red, // Couleur de fond rouge
                         ),
@@ -196,7 +227,7 @@ class _HistoriqueState extends State<Historique> {
                                         Navigator.of(context)
                                             .pop(); // Ferme la boîte de dialogue
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         'Non',
                                         style: TextStyle(
                                           color: Colors
@@ -258,42 +289,17 @@ class _HistoriqueState extends State<Historique> {
   }
 }
 
-class MyCustomClipper extends CustomClipper<Path> {
+class Courbe extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    final path = Path()
-      ..moveTo(0, size.height * 0.5) // Déplacez-vous au point de départ en bas au milieu
-      ..quadraticBezierTo(size.width * 0.25, 0, size.width * 0.5, size.height * 0.5) // Courbe de Bézier quadratique
-      ..quadraticBezierTo(size.width * 0.75, size.height, size.width, size.height * 0.5) // Courbe de Bézier quadratique
-      ..lineTo(size.width, 0) // Ligne droite jusqu'en haut
-      ..lineTo(0, 0) // Ligne droite jusqu'au point de départ
-      ..close(); // Fermez le chemin pour former une forme fermée
-
+    Path path = Path();
+    path.lineTo(0, size.height);
+    path.quadraticBezierTo(size.width / 4, size.height - 40, size.width / 2, size.height - 20);
+    path.quadraticBezierTo(3 / 4 * size.width, size.height+10, size.width, size.height - 20);
+    path.lineTo(size.width, 0);
     return path;
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-class MySecondCustomClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path()
-      ..moveTo(0, size.height * 0.6) // Déplacez-vous au point de départ en bas au milieu
-      ..quadraticBezierTo(size.width * 0.25, 0, size.width * 0.5, size.height * 0.6) // Courbe de Bézier quadratique
-      ..quadraticBezierTo(size.width * 0.75, size.height * 0.9, size.width, size.height * 0.7) // Courbe de Bézier quadratique
-      ..lineTo(size.width, 0) // Ligne droite jusqu'en haut
-      ..lineTo(0, 0) // Ligne droite jusqu'au point de départ
-      ..close(); // Fermez le chemin pour former une forme fermée
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
