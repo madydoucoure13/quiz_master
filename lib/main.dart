@@ -9,6 +9,7 @@ import 'package:quiz_master/JouerPage.dart';
 import 'fetchData.dart';
 import 'modeles/quiz.dart';
 import 'modeles/navigation.dart';
+import 'package:quiz_master/dashboard.dart';
 
 void main() {
   runApp(
@@ -31,6 +32,7 @@ class Quiz extends StatelessWidget {
       //home: PageAccueil(),
       // home: QuizPopulaire(),
       home: NavBar(),
+      // home: Dashboard(),
       // home: JouerPage(),
       // home: QuizCreate(),
 

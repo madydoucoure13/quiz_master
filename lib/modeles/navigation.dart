@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_master/page_accueil.dart';
+import 'package:quiz_master/dashboard.dart';
 
 
 class NavBar extends StatefulWidget {
@@ -16,10 +17,12 @@ PageController _pageController = PageController();
    int _currentPage = 0;
   
   List<Widget> pages = [
-    const PageAccueil(),
+    const Dashboard(),
     // PageHistorique(),
     // PageNotifications(),
     // PageProfil(),
+    // const PageAccueil(),
+
   ];
 
 

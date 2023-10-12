@@ -18,14 +18,18 @@ class _HomeWidgetState extends State<HomeWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: const Image(
-                image: AssetImage("assets/images/"),
-                width: 396,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
-            ),
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  "assets/images/home_header.png",
+                  fit: BoxFit.cover,
+                )
+                //  Image(
+                //   image: asset("assets/images/home_header.svg"),
+                //   width: 396,
+                //   height: 200,
+                //
+                // ),
+                ),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
               child: Row(
@@ -34,29 +38,42 @@ class _HomeWidgetState extends State<HomeWidget> {
                 children: [
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text(
-                      "Connexion",
-                      style: TextStyle(color: Colors.black),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Text(
+                        "Connexion",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFD9D9D9),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       textStyle: const TextStyle(
                           color: Colors.black,
-                          fontSize: 10,
+                          fontSize: 23,
                           fontStyle: FontStyle.normal),
                     ),
                   ),
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text(
-                      "Inscription",
-                      style: TextStyle(color: Colors.white),
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Text(
+                        "Inscription",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0397CA),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      backgroundColor: Color(0xFF0397CA),
                       textStyle: const TextStyle(
                           color: Colors.white,
-                          fontSize: 10,
+                          fontSize: 23,
                           fontStyle: FontStyle.normal),
                     ),
                   ),
@@ -69,7 +86,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: const [
                     Text(
                       'Bienvenue sur ',
                       textAlign: TextAlign.center,
@@ -97,182 +114,186 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ),
                   ]),
             ),
-            const Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 40),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Text(
-                      'Explorez, apprenez, triomphez : c\'est Quiz Master !',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 17,
-                      ),
-                    ),
+                    child: RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(children: [
+                          TextSpan(
+                              text: "Explorez, apprenez, triomphez c\'est \n",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20)),
+                          TextSpan(
+                              text: " Quiz Master!",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 20)),
+                        ])),
                   ),
                 ],
               ),
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: ListView(
                   children: [
-                    Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                      child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 10, 0, 0),
-                              child: Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  elevation: 4,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const Column(
-                                    children: [
-                                      ListTile(
-                                        leading:
-                                            Icon(Icons.account_circle_outlined),
-                                        title: Text(
-                                          'Sy DIAKARIDIA',
-                                        ),
-                                        subtitle: Text(
-                                          'Crée le 10/10/2023',
-                                        ),
-                                        dense: false,
+                    Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 0),
+                            child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Column(
+                                  children: [
+                                    const ListTile(
+                                      leading:
+                                          Icon(Icons.account_circle_outlined),
+                                      title: Text(
+                                        'Sy DIAKARIDIA',
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("Catégorie: Informatique"),
-                                            Text("Score: 1700")
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            ),
-                            Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 10, 0, 0),
-                              child: Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  elevation: 4,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const Column(
-                                    children: [
-                                      ListTile(
-                                        leading:
-                                            Icon(Icons.account_circle_outlined),
-                                        title: Text(
-                                          'Mady DOUCOURE',
-                                        ),
-                                        subtitle: Text(
-                                          'Crée le 11/10/2023',
-                                        ),
-                                        dense: false,
+                                      subtitle: Text(
+                                        'Crée le 10/10/2023',
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("Catégorie: Informatique"),
-                                            Text("Score: 1700")
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                              child: Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  elevation: 4,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const Column(
-                                    children: [
-                                      ListTile(
-                                        leading:
-                                            Icon(Icons.account_circle_outlined),
-                                        title: Text(
-                                          'Mady DOUCOURE',
-                                        ),
-                                        subtitle: Text(
-                                          'Crée le 11/10/2023',
-                                        ),
-                                        dense: false,
+                                      dense: false,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: const [
+                                          Text("Catégorie: Informatique"),
+                                          Text("Score: 1700")
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("Catégorie: Informatique"),
-                                            Text("Score: 1700")
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                              child: Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  elevation: 4,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: const Column(
-                                    children: [
-                                      ListTile(
-                                        leading:
-                                            Icon(Icons.account_circle_outlined),
-                                        title: Text(
-                                          'Mady DOUCOURE',
-                                        ),
-                                        subtitle: Text(
-                                          'Crée le 11/10/2023',
-                                        ),
-                                        dense: false,
+                                    )
+                                  ],
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 10, 0, 0),
+                            child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Column(
+                                  children: [
+                                    const ListTile(
+                                      leading:
+                                          Icon(Icons.account_circle_outlined),
+                                      title: Text(
+                                        'Mady DOUCOURE',
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: Row(
-                                          children: [
-                                            Text("Catégorie: Informatique"),
-                                            Text("Score: 1700")
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                            ),
-                          ]),
-                    ),
+                                      subtitle: Text(
+                                        'Crée le 11/10/2023',
+                                      ),
+                                      dense: false,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: const [
+                                          Text("Catégorie: Informatique"),
+                                          Text("Score: 1700")
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading:
+                                          Icon(Icons.account_circle_outlined),
+                                      title: Text(
+                                        'Mady DOUCOURE',
+                                      ),
+                                      subtitle: Text(
+                                        'Crée le 11/10/2023',
+                                      ),
+                                      dense: false,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Catégorie: Informatique"),
+                                          Text("Score: 1700")
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                            child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading:
+                                          Icon(Icons.account_circle_outlined),
+                                      title: Text(
+                                        'Mady DOUCOURE',
+                                      ),
+                                      subtitle: Text(
+                                        'Crée le 11/10/2023',
+                                      ),
+                                      dense: false,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Row(
+                                        children: [
+                                          Text("Catégorie: Informatique"),
+                                          Text("Score: 1700")
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ),
+                        ]),
                   ],
                 ),
               ),
