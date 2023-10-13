@@ -552,7 +552,7 @@ class _InscriptionState extends State<inscription> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const MyHomePage(),
+                                              const HomePage(),
                                         ),
                                       );
                                     } else {

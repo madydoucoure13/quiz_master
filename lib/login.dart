@@ -75,7 +75,7 @@ class _loginState extends State<login> {
         debugPrint('User is currently signed out!');
       } else {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const MyHomePage()),
+          MaterialPageRoute(builder: (context) => const HomePage()),
         );
         debugPrint('User is signed in!');
       }
@@ -387,7 +387,7 @@ class _loginState extends State<login> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const MyHomePage()));
+                                              const HomePage()));
                                 }
 
                               },

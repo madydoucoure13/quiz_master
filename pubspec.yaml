@@ -86,6 +86,8 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    # - assets/icons/iconEmail.png
+    - assets/icons/Group 89.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

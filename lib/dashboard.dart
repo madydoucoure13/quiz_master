@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:quiz_master/container/nav_bar_section.dart';
+import 'package:quiz_master/historique.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key});
@@ -229,13 +230,29 @@ class _DashboardState extends State<Dashboard> {
                                   child: Image.asset(
                                       "assets/icons/historique.png"),
                                 ),
-                                const Text(
-                                  "Historique",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Historique()));
+                                  },
+                                  child: const Text(
+                                    "Historique",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ),
+                                // const Text(
+                                //   "Historique",
+                                //   style: TextStyle(
+                                //     fontWeight: FontWeight.bold,
+                                //     fontSize: 20,
+                                //   ),
+                                // ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 14, 0, 0),
