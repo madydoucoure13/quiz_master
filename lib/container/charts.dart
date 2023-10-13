@@ -37,33 +37,4 @@ import '../bar_grave/bar_graph.dart';
       }
     }
 
-    /*
-    return Center(
-          child: SizedBox(
-            height: 200,
-            child: MyBarGraph(
-              weeklySummary: weeklySummary,
-            ),
-          ),
-        );
-    */
-
-    /*
-
-    Widget build(BuildContext context) {
-        return Scaffold(
-          backgroundColor: Colors.grey[100],
-          body: Center(
-            child: SizedBox(
-              height: 200,
-                child: MyBarGraph(
-                  weeklySummary: weeklySummary,
-                ),
-            ),
-          ),
-        );
-      }
-
-     */
-    
 

@@ -26,5 +26,7 @@ class Quiz {
 
   factory Quiz.fromJson(Map<String, dynamic> json) =>
       _$QuizFromJson(json);
+
+  get score => null;
   Map<String, dynamic> toJson() => _$QuizToJson(this);
 }
