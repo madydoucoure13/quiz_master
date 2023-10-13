@@ -8,7 +8,8 @@ class Question {
   int idQuestion;
   @JsonKey(defaultValue: '')
   String contenue;
-
+  
+  @JsonKey(defaultValue: [])
   List<Reponse> reponses;
 
   Question(
