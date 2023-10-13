@@ -548,6 +548,7 @@ class _InscriptionState extends State<inscription> {
                                       );
 
                                       // Rediriger l'utilisateur vers une autre page
+                                      // ignore: use_build_context_synchronously
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

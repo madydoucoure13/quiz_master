@@ -1,18 +1,15 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:quiz_master/Provider/UtilisateurProvider.dart';
 import 'package:quiz_master/login.dart';
 import 'package:quiz_master/services/api_service.dart';
-import 'package:quiz_master/services/api_service.dart';
-
-import 'services/api_service.dart';
 // import 'package:quiz_master/services/api_service.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter/hom.dart';
 // import 'package:quiz_master/dashboard.dart';
 
-import 'package:quiz_master/profil_utilisateur.dart';
 
 //import 'package:device_preview/device_preview.dart';
 /*void main() {
@@ -29,7 +26,15 @@ Future<void> main() async {
 
   // initializing the firebase app
   // await Firebase.initializeApp();
-  runApp(const MyApp());
+  //A ne pas effacer
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create:(context) => UtilisateurProvider())
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -72,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await GoogleSignIn().signOut().then((_) {
       // Exécute cette partie du code lorsque la déconnexion est réussie
       // Redirection vers la page de connexion
-      Navigator.of(context)
+      Navigator.of(context as BuildContext)
           .push(MaterialPageRoute(builder: (context) => const login()));
     });
   }

@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quiz_master/Provider/UtilisateurProvider.dart';
+import 'package:quiz_master/login.dart';
+import 'package:quiz_master/models/User.dart';
 
-class ProfilUtilisateur extends StatelessWidget {
+
+class ProfilUtilisateur extends StatefulWidget {
   const ProfilUtilisateur({super.key});
+
+  @override
+  State<ProfilUtilisateur> createState() => _ProfilUtilisateurState();
+}
+
+class _ProfilUtilisateurState extends State<ProfilUtilisateur> {
+  late User user;
+
+  @override
+  void initState(){
+    super.initState();
+    user = Provider.of<UtilisateurProvider>(context as BuildContext, listen: false).user!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,30 +62,34 @@ class ProfilUtilisateur extends StatelessWidget {
                 width: 2.0,
               ),
             ),
-            child: const Center(
+            child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Nom',
-                    style: TextStyle(
+                    // ignore: unnecessary_string_interpolations
+                    '${user.nomPrenom}',
+                    // ignore: prefer_const_constructors
+                    style:  TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    'Prénom',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  // ignore: prefer_const_constructors
+                  // Text(
+                  //   'Prénom',
+                  //   // ignore: prefer_const_constructors
+                  //   style: TextStyle(
+                  //     fontSize: 20,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
           ),
           // UserProfile entre les deux conteneurs
-          const Positioned(
+           Positioned(
             top: 140 - 0,
             left: 155,
             child: CircleAvatar(
@@ -82,8 +104,8 @@ class ProfilUtilisateur extends StatelessWidget {
             right: 0.0,
             child: Container(
               color: Colors.transparent,
-              padding: const EdgeInsets.all(35.0),
-              child: const Row(
+              padding:  EdgeInsets.all(35.0),
+              child:  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -98,7 +120,7 @@ class ProfilUtilisateur extends StatelessWidget {
                   ),
                   SizedBox(width: 0.0),
                   Text(
-                    'example@gmail.com',
+                    '${user.email}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black, // Couleur du texte en noir
@@ -122,8 +144,8 @@ class ProfilUtilisateur extends StatelessWidget {
             right: 0.0,
             child: Container(
               color: Colors.transparent,
-              padding: const EdgeInsets.all(35.0),
-              child: const Row(
+              padding:  EdgeInsets.all(35.0),
+              child:  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -132,7 +154,7 @@ class ProfilUtilisateur extends StatelessWidget {
                     backgroundImage: AssetImage('assets/icons/barbe.png'),
                   ),
                   Text(
-                    'Horen',
+                    '${user.pesudo}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black, // Couleur du texte en noir
@@ -300,11 +322,20 @@ class ProfilUtilisateur extends StatelessWidget {
                       padding: const EdgeInsets.all(
                           10.0),
                     ),
-                    child: const Text(
-                      'Déconnexion',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                    child:  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const login()),);
+                      },
+                      // ignore: prefer_const_constructors
+                      child: Text(
+                        'Déconnexion',
+                        // ignore: prefer_const_constructors
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
                   ),
