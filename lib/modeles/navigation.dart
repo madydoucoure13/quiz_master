@@ -21,7 +21,7 @@ PageController _pageController = PageController();
   
   List<Widget> pages = [
     const Dashboard(),
-    ProfilUtilisateur(),
+    // ProfilUtilisateur(),
     NotificationPage(),
     // PageProfil(),
     // const PageAccueil(),
