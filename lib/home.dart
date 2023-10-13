@@ -31,7 +31,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 // ),
                 ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -80,7 +80,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ],
               ),
             ),
-            Padding(
+             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
               child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -97,13 +97,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ),
                   ]),
             ),
-            Padding(
+             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
               child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
                       'QUIZZ MASTER !',
                       textAlign: TextAlign.center,

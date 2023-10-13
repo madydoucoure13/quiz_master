@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import 'mes_quiz.dart';
+
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key});
 
@@ -16,10 +18,8 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset("assets/icons/quiz_master.png"),
-        backgroundColor: Color(0xFF10B2E9),
-        actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.menu))
-        ],
+        backgroundColor: const Color(0xFF10B2E9),
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.menu))],
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -29,71 +29,83 @@ class _DashboardState extends State<Dashboard> {
               Row(
                 children: [
                   Expanded(
-                    flex: 10,
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: const  BoxDecoration(),
-                          child: ClipPath(
-                            clipper: Courbe(), // Utilisez votre classe CustomClipPath comme clipper
-                            child: Container(
-                              height: 120.0, // Ajustez la hauteur selon vos besoins
-                              color: const Color.fromARGB(255, 243, 201, 33), // Couleur de la barre info user
+                      flex: 10,
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(),
+                            child: ClipPath(
+                              clipper:
+                                  Courbe(), // Utilisez votre classe CustomClipPath comme clipper
+                              child: Container(
+                                height:
+                                    120.0, // Ajustez la hauteur selon vos besoins
+                                color: const Color.fromARGB(255, 243, 201,
+                                    33), // Couleur de la barre info user
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          decoration: const  BoxDecoration(),
-                          child: ClipPath(
-                            clipper: Courbe(), // Utilisez votre classe CustomClipPath comme clipper
-                            child: Container(
-                              height: 115.0, // Ajustez la hauteur selon vos besoins
-                              color: Color(0xFF10B2E9), // Couleur de la barre info user
+                          Container(
+                            decoration: const BoxDecoration(),
+                            child: ClipPath(
+                              clipper:
+                                  Courbe(), // Utilisez votre classe CustomClipPath comme clipper
+                              child: Container(
+                                height:
+                                    115.0, // Ajustez la hauteur selon vos besoins
+                                color: const Color(
+                                    0xFF10B2E9), // Couleur de la barre info user
+                              ),
                             ),
                           ),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Row(
-                            children: [
-                              Expanded(flex:7 ,child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                               Text("Bienvenue sur la page d’accueil",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                ),),
-                                Text("SY Diakaridia",
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    flex: 7,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Bienvenue sur la page d’accueil",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        Text(
+                                          "SY Diakaridia",
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    )),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    height: 50.0,
+                                    width: 50.0,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                            "https://i.imgur.com/BoN9kdC.png",
+                                          ),
+                                        )),
                                   ),
                                 )
-                              ],)),
-                              Expanded(flex: 1, child: Container(
-                                height: 50.0,
-                                width: 50.0,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        "https://i.imgur.com/BoN9kdC.png",
-                                      ),
-                                    )
-                                ),
-                              ),)
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ),
+                              ],
+                            ),
+                          )
+                        ],
+                      )),
                 ],
               ),
               Padding(
@@ -104,56 +116,62 @@ class _DashboardState extends State<Dashboard> {
                       flex: 3,
                       child: Column(
                         children: [
-                          Container(
-                            height: 120,
-                            width: double.infinity,
-                            margin: EdgeInsets.only(top: 0, bottom: 10),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Color(0XFFFFD700),
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset("assets/icons/play.png"),
-                                Text(
-                                  "Quiz",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
+                          GestureDetector(
+                            onTap: () {
+                             Navigator.push(context,  MaterialPageRoute(builder: (context) => const Mesquiz()));
+                            },
+                            child: Container(
+                              height: 120,
+                              width: double.infinity,
+                              margin: const EdgeInsets.only(top: 0, bottom: 10),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: const Color(0XFFFFD700),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 27, 0, 0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF0397CA),
-                                      borderRadius: BorderRadius.vertical(
-                                        bottom: Radius.circular(10),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset("assets/icons/play.png"),
+                                  const Text(
+                                    "Quiz",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 27, 0, 0),
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFF0397CA),
+                                        borderRadius: BorderRadius.vertical(
+                                          bottom: Radius.circular(10),
+                                        ),
+                                      ),
+                                      width: double.infinity,
+                                      child: const Text(
+                                        "Meilleur score 2000",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                     ),
-                                    width: double.infinity,
-                                    child: Text(
-                                      "Meilleur score 2000",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.white),
-                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Container(
                             width: double.infinity,
                             height: 120,
-                            margin: EdgeInsets.only(bottom: 25),
+                            margin: const EdgeInsets.only(bottom: 25),
                             decoration: BoxDecoration(
                               border: Border.all(
                                 width: 1,
-                                color: Color(0XFFFFD700),
+                                color: const Color(0XFFFFD700),
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -161,8 +179,10 @@ class _DashboardState extends State<Dashboard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                  child: Image.asset("assets/icons/mesquiz.png"),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                  child:
+                                      Image.asset("assets/icons/mesquiz.png"),
                                 ),
                                 const Text(
                                   "Mes Quiz",
@@ -172,7 +192,8 @@ class _DashboardState extends State<Dashboard> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 25, 0, 0),
                                   child: Container(
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF0397CA),
@@ -201,7 +222,7 @@ class _DashboardState extends State<Dashboard> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 width: 1,
-                                color: Color(0XFFFFD700),
+                                color: const Color(0XFFFFD700),
                               ),
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -209,8 +230,10 @@ class _DashboardState extends State<Dashboard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                  child: Image.asset("assets/icons/historique.png"),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: Image.asset(
+                                      "assets/icons/historique.png"),
                                 ),
                                 const Text(
                                   "Historique",
@@ -220,7 +243,8 @@ class _DashboardState extends State<Dashboard> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 14, 0, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 14, 0, 0),
                                   child: Container(
                                     decoration: const BoxDecoration(
                                       color: Color(0xFF0397CA),
@@ -242,20 +266,21 @@ class _DashboardState extends State<Dashboard> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     // Container pour les statistiques
                     Container(
                       width: 220,
                       height: 420,
-                      margin: EdgeInsets.only(bottom: 20),
+                      margin: const EdgeInsets.only(bottom: 20),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        border: Border.all(width: 1, color: Color(0xFFFFD700)),
+                        border: Border.all(
+                            width: 1, color: const Color(0xFFFFD700)),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Column(
                         children: [
-                          Text(
+                          const Text(
                             'Statistiques',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -276,19 +301,23 @@ class _DashboardState extends State<Dashboard> {
                               height: 0,
                             ),
                           ),
-                          SizedBox(height: 10), // Espace entre le texte et le cercle
+                          const SizedBox(
+                              height: 10), // Espace entre le texte et le cercle
                           CircularPercentIndicator(
                             radius: 65.0, // Taille du cercle
                             lineWidth: 10.0, // Largeur de la ligne du cercle
-                            percent: 0.75, // Pourcentage à afficher (remplacez par votre propre pourcentage)
-                            center: Text(
+                            percent:
+                                0.75, // Pourcentage à afficher (remplacez par votre propre pourcentage)
+                            center: const Text(
                               "75%", // Le texte du pourcentage
                               style: TextStyle(fontSize: 20),
                             ),
-                            progressColor: Colors.blue, // Couleur de la partie remplie du cercle
-                            backgroundColor: Colors.grey, // Couleur de la partie non remplie du cercle
+                            progressColor: Colors
+                                .blue, // Couleur de la partie remplie du cercle
+                            backgroundColor: Colors
+                                .grey, // Couleur de la partie non remplie du cercle
                           ),
-                          Text(
+                          const Text(
                             'Quiz accomplie',
                             style: TextStyle(
                               color: Colors.black,
@@ -309,7 +338,7 @@ class _DashboardState extends State<Dashboard> {
                               });
                             },
                           ),
-                          Text(
+                          const Text(
                             'Réponses incorrectes',
                             style: TextStyle(
                               color: Colors.black,
@@ -330,7 +359,7 @@ class _DashboardState extends State<Dashboard> {
                               });
                             },
                           ),
-                          Text(
+                          const Text(
                             'Réponses correctes',
                             style: TextStyle(
                               color: Colors.black,
@@ -377,10 +406,10 @@ class _DashboardState extends State<Dashboard> {
               // Container pour les quiz populaires
               Container(
                 width: 355,
-                margin: EdgeInsets.only(top: 2),
+                margin: const EdgeInsets.only(top: 2),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(width: 1, color: Color(0xFFFFD700)),
+                  border: Border.all(width: 1, color: const Color(0xFFFFD700)),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -389,7 +418,7 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         Column(
                           children: [
-                           const Text(
+                            const Text(
                               'Quiz Populaire ',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -410,23 +439,29 @@ class _DashboardState extends State<Dashboard> {
                                 height: 0,
                               ),
                             ),
-                            SizedBox(height: 10), // Espace entre le texte et le cercle
+                            const SizedBox(
+                                height:
+                                    10), // Espace entre le texte et le cercle
                             CircularPercentIndicator(
                               radius: 65.0, // Taille du cercle
                               lineWidth: 10.0, // Largeur de la ligne du cercle
-                              percent: 0.75, // Pourcentage à afficher (remplacez par votre propre pourcentage)
-                              center: Text(
+                              percent:
+                                  0.75, // Pourcentage à afficher (remplacez par votre propre pourcentage)
+                              center: const Text(
                                 "75%", // Le texte du pourcentage
                                 style: TextStyle(fontSize: 20),
                               ),
-                              progressColor: Colors.blue, // Couleur de la partie remplie du cercle
-                              backgroundColor: Colors.grey, // Couleur de la partie non remplie du cercle
+                              progressColor: Colors
+                                  .blue, // Couleur de la partie remplie du cercle
+                              backgroundColor: Colors
+                                  .grey, // Couleur de la partie non remplie du cercle
                             ),
                           ],
                         ),
-                        Column( //Column bottom right
+                        Column(
+                          //Column bottom right
                           children: [
-                            Text(
+                            const Text(
                               'Réponses correctes',
                               style: TextStyle(
                                 color: Colors.black,
@@ -446,7 +481,8 @@ class _DashboardState extends State<Dashboard> {
                                   _currentSliderValue = value;
                                 });
                               },
-                            ),     Text(
+                            ),
+                            const Text(
                               'Réponses correctes',
                               style: TextStyle(
                                 color: Colors.black,
@@ -469,7 +505,6 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ],
                         ),
-
                       ],
                     ),
                     Padding(
@@ -505,11 +540,14 @@ class Courbe extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
     path.lineTo(0, size.height);
-    path.quadraticBezierTo(size.width / 4, size.height - 40, size.width / 2, size.height - 20);
-    path.quadraticBezierTo(3 / 4 * size.width, size.height+10, size.width, size.height - 20);
+    path.quadraticBezierTo(
+        size.width / 4, size.height - 40, size.width / 2, size.height - 20);
+    path.quadraticBezierTo(
+        3 / 4 * size.width, size.height + 10, size.width, size.height - 20);
     path.lineTo(size.width, 0);
     return path;
   }
+
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
