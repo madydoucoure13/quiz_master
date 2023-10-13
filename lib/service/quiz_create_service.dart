@@ -1,9 +1,10 @@
 import 'package:http/http.dart' as http;
+import 'package:quiz_master/main.dart';
 
 class QuizCreateService {
   final String apiUrl = 'http://localhost:8080'; //l'URL de l'API
 
-  Future<bool> submitData(Map<String, dynamic> data) async {
+  Future<bool> submitData(QuizData data) async {
     final response = await http.post(
       Uri.parse('$apiUrl/quiz/ajouter'), // l'endpoint de connexion
       body: data,
@@ -18,4 +19,30 @@ class QuizCreateService {
       return false;
     }
   }
+
+  createQuiz(QuizData quizData) {
+
+  }
 }
+
+//============================================================ models
+
+class QuizData {
+  String quizName;
+  int responseTime;
+  
+  var questions;
+  //List<QuestionData> questions;
+
+  QuizData({required this.quizName, required this.responseTime, required this.questions});
+}
+
+// class QuestionData {
+//   String questionText;
+//   String imagePath;
+//   List<String> responses;
+
+//   QuestionData({required this.questionText, required this.imagePath, required this.responses});
+
+//   Object? toJson() {}
+// }
