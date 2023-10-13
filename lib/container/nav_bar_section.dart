@@ -26,6 +26,7 @@ class _NavBarSectionState extends State<NavBarSection> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             // Retour à la page précédente
+            Navigator.pop(context);
           },
         ),
         actions: [

@@ -21,7 +21,7 @@ class TrueClassementPage extends StatelessWidget {
                         top: 20, right: 10, bottom: 0, left: 10),
                     child: ClipOval(
                       child: SizedBox.fromSize(
-                        size: const Size.fromRadius(34),
+                        size: const Size.fromRadius(30),
                         child: Image.asset(
                           "assets/images/profil.png",
                         ),
@@ -69,8 +69,8 @@ class TrueClassementPage extends StatelessWidget {
                     // margin: const EdgeInsets.only(top: 0),
                     child: Image.asset(
                       "assets/images/med2.png",
-                      width: 125,
-                      height: 125,
+                      width: 115,
+                      height: 115,
                     ),
                   ),
                   // const Center(
@@ -95,7 +95,7 @@ class TrueClassementPage extends StatelessWidget {
                         top: 20, right: 10, bottom: 0, left: 10),
                     child: ClipOval(
                       child: SizedBox.fromSize(
-                        size: const Size.fromRadius(38),
+                        size: const Size.fromRadius(34),
                         child: Image.asset(
                           "assets/images/profil.png",
                         ),
@@ -143,8 +143,8 @@ class TrueClassementPage extends StatelessWidget {
                     // margin: const EdgeInsets.only(top: 5),
                     child: Image.asset(
                       "assets/images/med1.png",
-                      width: 150,
-                      height: 150,
+                      width: 140,
+                      height: 140,
                     ),
                   ),
                   // const Center(
@@ -170,7 +170,7 @@ class TrueClassementPage extends StatelessWidget {
                         top: 20, right: 10, bottom: 0, left: 10),
                     child: ClipOval(
                       child: SizedBox.fromSize(
-                        size: const Size.fromRadius(30),
+                        size: const Size.fromRadius(26),
                         child: Image.asset(
                           "assets/images/profil.png",
                         ),
@@ -218,8 +218,8 @@ class TrueClassementPage extends StatelessWidget {
                     // margin: const EdgeInsets.only(top: 5),
                     child: Image.asset(
                       "assets/images/med3.png",
-                      width: 115,
-                      height: 115,
+                      width: 105,
+                      height: 105,
                     ),
                   ),
                   // const Center(

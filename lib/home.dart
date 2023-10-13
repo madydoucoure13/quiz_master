@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:quiz_master/inscription.dart';
+import 'package:quiz_master/login.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -37,7 +39,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const login()),
+                      );
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Text(
@@ -58,7 +65,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const inscription()));
+                    },
                     child: Padding(
                       padding: EdgeInsets.all(15),
                       child: Text(

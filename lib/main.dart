@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +13,10 @@ import 'modeles/navigation.dart';
 import 'package:quiz_master/dashboard.dart';
 
 void main() {
-  runApp(
-      ChangeNotifierProvider(
-      create: (context) => AnswerProvider(),
-      child: const Quiz(),
-  )
-      );
+  runApp(ChangeNotifierProvider(
+    create: (context) => AnswerProvider(),
+    child: const Quiz(),
+  ));
 }
 
 class Quiz extends StatelessWidget {
@@ -28,26 +25,24 @@ class Quiz extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
+    return const MaterialApp(
       title: 'Quiz Master',
       debugShowCheckedModeBanner: false,
       //home: PageAccueil(),
       // home: QuizPopulaire(),
-      home: NavBar(),
-      // home: Dashboard(),
+      // home: NavBar(),
+      // home: HomeWidget(),
+      home: Dashboard(),
       // home: JouerPage(),
       // home: QuizCreate(),
       // home: NavBarSection(),
-
-
-      
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
-  
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
