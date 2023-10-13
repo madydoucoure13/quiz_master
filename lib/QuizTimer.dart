@@ -5,8 +5,16 @@ import 'package:percent_indicator/percent_indicator.dart';
 class QuizTimer extends StatefulWidget {
   final int temps;
   final Function changeRemaining;
+  late  bool stopTimer;
+  final bool isLastQuestion;
 
-  const QuizTimer({Key? key, required this.temps, required this.changeRemaining}) : super(key: key);
+   QuizTimer({
+     Key? key,
+     required this.temps,
+     required this.changeRemaining,
+     required this.stopTimer,
+     required this.isLastQuestion
+   }) : super(key: key);
 
   @override
   _QuizTimerState createState() => _QuizTimerState();
@@ -24,10 +32,31 @@ class _QuizTimerState extends State<QuizTimer> {
         tempsRestant--;
         widget.changeRemaining(tempsRestant);
       });
-      if (tempsRestant == 0) {
+      if (tempsRestant == 0 || widget.stopTimer == true) {
         timer.cancel();
+        restartTimer();
       }
     });
+  }
+
+  void restartTimer() {
+    if (tempsRestant <= 0 || widget.stopTimer) {
+      Future.delayed(const Duration(seconds: 3), () {
+        tempsRestant = widget.temps;
+        Timer.periodic(const Duration(seconds: 1), (timer) {
+          setState(() {
+            tempsRestant--;
+            widget.changeRemaining(tempsRestant);
+          });
+          if (tempsRestant <= 0 || widget.stopTimer) {
+            timer.cancel();
+            if(!widget.isLastQuestion) {
+              restartTimer(); // Restart the timer if needed
+            }
+          }
+        });
+      });
+    }
   }
 
   @override
