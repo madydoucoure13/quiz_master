@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:quiz_master/quiz_create_state.dart';
 import 'package:quiz_master/service/api_service.dart';
 import 'package:quiz_master/service/quiz_create_service.dart';
+import 'dart:math';
+import 'package:http/http.dart' as http;
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 TextEditingController quizNameController = TextEditingController();
@@ -13,7 +16,8 @@ TextEditingController reponseTextController1 = TextEditingController(); // Nomme
 TextEditingController reponseTextController2 = TextEditingController();
 TextEditingController reponseTextController3 = TextEditingController();
 TextEditingController reponseTextController4 = TextEditingController();
-TextEditingController responseTimeController = TextEditingController(); // Vous avez oublié d'ajouter ce contrôleur
+TextEditingController responseTimeController = TextEditingController();
+//TextEditingController timer = TextEditingController(); // Vous avez oublié d'ajouter ce contrôleur
 
 const List<String> list = <String>[
   "Sélectionner une Catégorie",
@@ -35,6 +39,40 @@ class _QuizCreateState extends State<QuizCreate> {
   String dropdownValue = list.first;
   final picker = ImagePicker();
   XFile? _image;
+   
+  int timer = 0;
+  void changeTimer(int time) {
+    setState(() {
+      timer = time;
+    });
+  }
+
+  Random random = Random();
+
+void createQuiz() async{
+  int idQuiz = random.nextInt(99999999);
+  try {
+      final response = await http.post(
+      Uri.parse('http://10.175.48.139:8080/quiz/ajouter'),
+      headers: <String, String> {
+          'Content-Type' : 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'id': idQuiz,
+        'titre' : quizNameController.text,
+        'id_utilisateur': 1,
+        'timer' : timer,
+      }),
+    );
+
+    if(response.statusCode == 200) {
+      print('success');
+    }
+  } catch (e) {
+    print('Erreur lors de la requête : $e');
+  }
+  
+}
 
   Future<void> _getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -216,6 +254,7 @@ class _QuizCreateState extends State<QuizCreate> {
                                         content: Form(
                                           key: _formKey,
                                           child: TextFormField(
+                                            controller: responseTimeController,
                                             decoration: const InputDecoration(
                                               hintText: 'Durée',
                                               hintStyle: TextStyle(
@@ -236,8 +275,8 @@ class _QuizCreateState extends State<QuizCreate> {
                                               final numericValue =
                                                   int.tryParse(value);
                                               if (numericValue == null ||
-                                                  numericValue > 20) {
-                                                return 'La valeur doit être un nombre inférieur ou égal à 20.';
+                                                  numericValue > 10) {
+                                                return 'La valeur doit être un nombre inférieur ou égal à 10.';
                                               }
                                               return null;
                                             },
@@ -250,6 +289,8 @@ class _QuizCreateState extends State<QuizCreate> {
                                         actions: [
                                           TextButton(
                                             onPressed: () {
+                                              changeTimer(int.tryParse(responseTimeController.text)!);
+                                              print(int.tryParse(responseTimeController.text)!);
                                               if (_formKey.currentState!
                                                   .validate()) {
                                                 Navigator.of(context).pop();
@@ -320,29 +361,30 @@ class _QuizCreateState extends State<QuizCreate> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton(
-                          onPressed: () async {
+                          onPressed: ()  {
+                            createQuiz();
   // Construire l'objet QuestionData à partir des données du formulaire.
-                                  final apiService = ApiService();
-                                  final questionData = QuestionData(
-                                    questionText: questionTextController.text,
-                                    imagePath: _image?.path ?? '', // Le chemin de l'image sélectionnée
-                                    responses: [
-                                      reponseTextController1.text,
-                                      reponseTextController2.text,
-                                      reponseTextController3.text,
-                                      reponseTextController4.text,
-                                    ],
-                                  );
+                                  // final apiService = ApiService();
+                                  // final questionData = QuestionData(
+                                  //   questionText: questionTextController.text,
+                                  //   imagePath: _image?.path ?? '', // Le chemin de l'image sélectionnée
+                                  //   responses: [
+                                  //     reponseTextController1.text,
+                                  //     reponseTextController2.text,
+                                  //     reponseTextController3.text,
+                                  //     reponseTextController4.text,
+                                  //   ],
+                                  // );
 
-                                  // Envoyer la question à l'API.
-                                  final response = await apiService.postQuestion(questionData);
+                                  // // Envoyer la question à l'API.
+                                  // final response = await apiService.postQuestion(questionData);
 
-                                  // Gérer la réponse de l'API.
-                                  if (response.statusCode == 200) {
-                                    // La question a été envoyée avec succès.
-                                  } else {
-                                    // Une erreur s'est produite lors de l'envoi de la question.
-                                  }
+                                  // // Gérer la réponse de l'API.
+                                  // if (response.statusCode == 200) {
+                                  //   // La question a été envoyée avec succès.
+                                  // } else {
+                                  //   // Une erreur s'est produite lors de l'envoi de la question.
+                                  // }
                                 },
                           style: ButtonStyle(
                             backgroundColor:
@@ -357,6 +399,9 @@ class _QuizCreateState extends State<QuizCreate> {
                         ElevatedButton(
                           onPressed: () {
                             // Logique à exécuter lorsque le deuxième bouton est pressé.
+                            print("${quizNameController.text}  ${questionTextController.text}");
+                            
+
                           },
                           style: ButtonStyle(
                             backgroundColor:
