@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:quiz_master/container/nav_bar_section.dart';
 import 'package:quiz_master/historique.dart';
+import 'package:quiz_master/mes_quiz.dart';
+import 'package:quiz_master/quiz_populaire.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key});
@@ -179,13 +181,41 @@ class _DashboardState extends State<Dashboard> {
                                   child:
                                       Image.asset("assets/icons/mesquiz.png"),
                                 ),
-                                const Text(
+                                
+                                /*
+                                
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NavBarSection()));
+                                
+                                 */
+
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const Mesquiz())
+                                    );
+                                  },
+                                  child: const Text(
+                                    "Mes Quiz",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ),
+                                
+                                /*const Text(
                                   "Mes Quiz",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
                                   ),
                                 ),
+                                */
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 25, 0, 0),
@@ -456,17 +486,28 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         Column(
                           children: [
-                            const Text(
-                              'Quiz Populaire ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w700,
-                                height: 0,
+                            
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context, 
+                                  MaterialPageRoute(builder: (context) => QuizPopulaire())
+                                );
+                              },
+                              child: const Text(
+                                'Quiz Populaire ',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w700,
+                                  height: 0,
+                                ),
                               ),
                             ),
+                            
+
                             const Text(
                               'Spring Boot',
                               style: TextStyle(

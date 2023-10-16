@@ -15,6 +15,8 @@ import 'package:quiz_master/services/api_service.dart';
 
 import 'package:quiz_master/dashboard.dart';
 
+import 'modeles/navigation.dart';
+
 // :::::::::::::::::::::::::::::::::::::  statfulwidget class :::::::::
 class Inscription extends StatefulWidget {
   const Inscription({Key? key}) : super(key: key);
@@ -414,7 +416,7 @@ class _InscriptionState extends State<Inscription> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const Dashboard(),
+                                                  const NavBar(),
                                             ),
                                           );
 
