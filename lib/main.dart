@@ -3,7 +3,9 @@ import 'dart:ffi';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:quiz_master/inscription.dart';
 import 'package:quiz_master/login.dart';
+import 'package:quiz_master/navigationBar.dart';
 import 'package:quiz_master/services/api_service.dart';
 import 'package:quiz_master/services/api_service.dart';
 
@@ -23,6 +25,8 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  
 
   // This widget is the root of your application.
   @override
@@ -48,11 +52,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   
+
   void _incrementCounter() {
     setState(() {
       _counter++;
+
     });
   }
+
 
   
 
