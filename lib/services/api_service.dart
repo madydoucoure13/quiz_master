@@ -109,8 +109,6 @@ class Service {
         await prefs.setString('motDePasse', motDePasse);
         await prefs.setString('confirmPasseword', confirmPasseword);
 
-       
-
         return response;
       } else {
         // Échec : Gestion d'erreur en cas de code de statut non attendu
@@ -121,7 +119,6 @@ class Service {
       // Gestion des erreurs générales (par exemple, perte de connexion)
       throw Exception('Une erreur s\'est produite : $error');
     }
-    
   }
 }
 // :::::::::::::::::::::::::::login:::::::::::::
@@ -157,9 +154,8 @@ class ServiceLoger {
       throw Exception('Une erreur s\'est produite : $error');
     }
   }
-  
-  Future<Map<String, dynamic>> verifyUserEmail(
-      String email) async {
+
+  Future<String> verifyUserEmail(String email) async {
     try {
       // Créez l'URI pour la vérification de l'utilisateur avec les paramètres dans l'URL (GET)
       var uri = Uri.parse(
@@ -172,12 +168,13 @@ class ServiceLoger {
       if (response.statusCode == 200) {
         debugPrint("${response.statusCode}");
         debugPrint(response.body);
+        var resut = response.body;
         // Succès : Utilisateur existe et informations correctes
-        return json.decode(response.body);
+        return response.body;
       } else if (response.statusCode == 401) {
         debugPrint(" existe et informations correctes");
         // Échec : Utilisateur existe, mais informations incorrectes
-        return Map();
+        return "utilisateur n'existe pas";
       } else {
         // Autres cas de code de statut (gestion d'erreur)
         throw Exception(
@@ -230,26 +227,23 @@ Future<user> localStorage() async {
 
 // methode authentification google:::::::::::::::::::::::::::::
 Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser != null) {
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  if (googleUser != null) {
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
 
-      // Create a new credential
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
 
-      // Once signed in, return the UserCredential
-
-      return await FirebaseAuth.instance.signInWithCredential(credential);
-    } else {
-      debugPrint('user null');
-      throw Error;
-    }
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  } else {
+    debugPrint('L\'utilisateur a annulé la connexion Google');
+    throw Exception('L\'utilisateur a annulé la connexion Google');
   }
-
-  
+}

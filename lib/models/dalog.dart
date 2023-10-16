@@ -189,6 +189,7 @@ class CleanDialogActionButtons extends StatelessWidget {
 // }
 class Popup {
   final TextEditingController _emailController2 = TextEditingController();
+  final TextEditingController _emailController3 = TextEditingController();
   ServiceLoger service = ServiceLoger();
   final _formkey = GlobalKey<FormState>();
 
@@ -264,13 +265,14 @@ class Popup {
                       child: ElevatedButton(
                           onPressed: () async {
                             if (_formkey.currentState!.validate()) {
-                              Map<String, dynamic> user = await service
-                                  .verifyUserEmail(_emailController2.text);
-                              if (user["idUtilisateur"] != null &&
-                                  user.containsKey("idUtilisateur")) {
-                                    
-                                dialogConfirmCode(context);
-                              }
+                              await service
+                                  .verifyUserEmail(_emailController2.text)
+                                  .then((value) {
+                                dialogConfirmCode(context, value);
+                              }).catchError((onError) {
+                                // ignore: prefer_interpolation_to_compose_strings
+                                throw ("erreur : " + onError);
+                              });
                             }
                           },
                           child: const Text("Envoyer")),
@@ -284,7 +286,7 @@ class Popup {
         });
   }
 
-  void dialogConfirmCode(BuildContext context) {
+  void dialogConfirmCode(BuildContext context, String code) {
     showDialog(
         context: context,
         builder: (context) {
@@ -310,9 +312,9 @@ class Popup {
             ),
             content: Container(
               height: 220,
-               width: 200,
+              width: 200,
               child: Form(
-                // key: _formkey,
+                key: _formkey,
                 child: Column(
                   children: [
                     const Text(
@@ -334,7 +336,7 @@ class Popup {
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       child: TextFormField(
-                        // controller: _emailController2,
+                        controller: _emailController3,
                         decoration: const InputDecoration(
                           // labelText: "",
                           hintText: "Entree votre code",
@@ -355,15 +357,11 @@ class Popup {
                       width: double.infinity,
                       child: ElevatedButton(
                           onPressed: () async {
-                            // if (_formkey.currentState!.validate()) {
-                            //    Map<String, dynamic>
-                            //    user = await service
-                            //     .verifyUserEmail(_emailController2.text);
-                            // if (user["idUtilisateur"] != null &&
-                            //     user.containsKey("idUtilisateur")) {
-
-                            // }
-                            // }
+                            if (_formkey.currentState!.validate()) {
+                              if(_emailController3.text == code){
+                                // ::::doit ce rediriger vers la page de modification de password
+                              }
+                            }
                           },
                           child: const Text("Envoyer")),
                     )
