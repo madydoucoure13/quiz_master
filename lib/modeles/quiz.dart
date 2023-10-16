@@ -16,13 +16,13 @@ class Quiz {
   Utilisateur utilisateur;
   List<Question> questions;
 
-  Quiz(
-      this.idQuiz,
-      this.titre,
-      this.timer,
-      this.utilisateur,
-      this.questions,
-      );
+  Quiz({
+    required this.idQuiz,
+    required this.titre,
+    required this.timer,
+    required this.utilisateur,
+    required this.questions,
+  });
 
   factory Quiz.fromJson(Map<String, dynamic> json) =>
       _$QuizFromJson(json);

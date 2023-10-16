@@ -8,6 +8,8 @@ import 'package:quiz_master/service/api_service.dart';
 import 'package:quiz_master/service/quiz_create_service.dart';
 import 'dart:math';
 import 'package:http/http.dart' as http;
+import 'modeles/quiz.dart';
+import 'modeles/user.dart';
 
 const Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 TextEditingController quizNameController = TextEditingController();
@@ -27,6 +29,8 @@ const List<String> list = <String>[
 ];
 // Déclarez la clé en dehors de la fonction build.
 final _formKey = GlobalKey<FormState>();
+
+
 List<QuestionData> quizQuestions = []; // Déclarez la liste de questions
 class QuizCreate extends StatefulWidget {
   const QuizCreate({super.key});
@@ -50,23 +54,22 @@ class _QuizCreateState extends State<QuizCreate> {
   Random random = Random();
 
 void createQuiz() async{
-  int idQuiz = random.nextInt(99999999);
+  int idQuiz = random.nextInt(999);
+  // Créez un objet Quiz avec les données nécessaires
+  int userId = 1;
+  Utilisateur usr =   Utilisateur(idUtilisateur: userId, nom: '', prenom: '', email: '', motDePasse: '');
+  Quiz quiz = Quiz(idQuiz: idQuiz, titre: quizNameController.text, timer: timer, utilisateur: usr, questions: []);
   try {
       final response = await http.post(
-      Uri.parse('http://10.175.48.139:8080/quiz/ajouter'),
+      Uri.parse('http://10.175.48.227:8080/quiz/ajouter'),
       headers: <String, String> {
           'Content-Type' : 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, dynamic>{
-        'id': idQuiz,
-        'titre' : quizNameController.text,
-        'id_utilisateur': 1,
-        'timer' : timer,
-      }),
+      body: jsonEncode(quiz.toJson()),
     );
-
-    if(response.statusCode == 200) {
       print('success');
+    if(response.statusCode == 200) {
+      print('success22');
     }
   } catch (e) {
     print('Erreur lors de la requête : $e');
@@ -289,7 +292,8 @@ void createQuiz() async{
                                         actions: [
                                           TextButton(
                                             onPressed: () {
-                                              changeTimer(int.tryParse(responseTimeController.text)!);
+                                              // changeTimer(int.tryParse(responseTimeController.text)!);
+                                              timer = int.tryParse(responseTimeController.text)!;
                                               print(int.tryParse(responseTimeController.text)!);
                                               if (_formKey.currentState!
                                                   .validate()) {

@@ -7,11 +7,12 @@ part of 'quiz.dart';
 // **************************************************************************
 
 Quiz _$QuizFromJson(Map<String, dynamic> json) => Quiz(
-      json['idQuiz'] as int,
-      json['titre'] as String,
-      json['timer'] as int,
-      Utilisateur.fromJson(json['utilisateur'] as Map<String, dynamic>),
-      (json['questions'] as List<dynamic>)
+      idQuiz: json['idQuiz'] as int? ?? 0,
+      titre: json['titre'] as String? ?? '',
+      timer: json['timer'] as int? ?? 15,
+      utilisateur:
+          Utilisateur.fromJson(json['utilisateur'] as Map<String, dynamic>),
+      questions: (json['questions'] as List<dynamic>)
           .map((e) => Question.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

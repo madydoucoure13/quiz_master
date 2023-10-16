@@ -10,16 +10,15 @@ class Utilisateur {
   String email;
   String motDePasse;
 
-  Utilisateur(
-      this.idUtilisateur,
-      this.nom,
-      this.prenom,
-      this.email,
-      this.motDePasse,
-      );
+  Utilisateur({
+    required this.idUtilisateur,
+    required this.nom,
+    required this.prenom,
+    required this.email,
+    required this.motDePasse,
+  });
 
   factory Utilisateur.fromJson(Map<String, dynamic> json) =>
       _$UtilisateurFromJson(json);
   Map<String, dynamic> toJson() => _$UtilisateurToJson(this);
-
 }
