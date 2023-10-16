@@ -1,6 +1,5 @@
 // import 'dart:ffi';
 
-
 // import 'dart:developer';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -13,6 +12,10 @@ import 'package:quiz_master/main.dart';
 // import 'package:quiz_master/models/dalog.dart';
 import 'package:quiz_master/services/entete.dart';
 import 'package:quiz_master/services/api_service.dart';
+
+import 'package:quiz_master/dashboard.dart';
+
+import 'modeles/navigation.dart';
 
 // :::::::::::::::::::::::::::::::::::::  statfulwidget class :::::::::
 class Inscription extends StatefulWidget {
@@ -31,11 +34,8 @@ class _InscriptionState extends State<Inscription> {
   final TextEditingController _passwordController = TextEditingController();
   // final TextEditingController _ageController = TextEditingController();
   Service service = Service();
-  
 
   final _formkey = GlobalKey<FormState>();
-
-  
 
   @override
   void initState() {
@@ -328,7 +328,7 @@ class _InscriptionState extends State<Inscription> {
                                     border: const OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(9.0))),
-                                    contentPadding:const EdgeInsets.all(8.0),
+                                    contentPadding: const EdgeInsets.all(8.0),
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -380,7 +380,6 @@ class _InscriptionState extends State<Inscription> {
 
                               // ::::::::::::::::::::::::::button de validation:::::::::::::::::::::::::::::
                               SizedBox(
-                                
                                 width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed: () async {
@@ -417,7 +416,7 @@ class _InscriptionState extends State<Inscription> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const MyHomePage(),
+                                                  const NavBar(),
                                             ),
                                           );
 
