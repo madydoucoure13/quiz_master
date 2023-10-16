@@ -12,6 +12,7 @@ import 'fetchData.dart';
 import 'modeles/quiz.dart';
 import 'modeles/navigation.dart';
 import 'package:quiz_master/dashboard.dart';
+import 'package:quiz_master/liste_quiz.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -30,14 +31,18 @@ class Quiz extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //home: PageAccueil(),
       // home: QuizPopulaire(),
-       home: NavBar(),
+      //  home: NavBar(),
       // home: login(),
       // home: HomeWidget(),
       // home: Dashboard(),
       // home: JouerPage(),
       // home: QuizCreate(),
       // home: NavBarSection(),
-      // home: HomeWidget(),
+       home: HomeWidget(),
+      // home: ListQuiz(),
+      // home: JouerPage(),
+      // home: QuizCreate(),
+      // home: Mesquiz(),
     );
   }
 }

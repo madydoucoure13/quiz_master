@@ -30,6 +30,10 @@ class _HistoriqueState extends State<Historique> {
   final List<QuizItem> quizItems = [
     QuizItem("Quiz 1", "Catégorie A", "Joueur 1"),
     QuizItem("Quiz 2", "Catégorie B", "Joueur 2"),
+    QuizItem("Quiz 3", "Catégorie C", "Joueur 3"),
+    QuizItem("Quiz 4", "Catégorie D", "Joueur 4"),
+    QuizItem("Quiz 5", "Catégorie E", "Joueur 5"),
+    QuizItem("Quiz 6", "Catégorie F", "Joueur 6"),
     // Ajoutez d'autres éléments ici
   ];
   int selectedItemIndex =
@@ -53,7 +57,7 @@ class _HistoriqueState extends State<Historique> {
             color: Colors.white, // Couleur blanche de l'icône
           ),
         ),
-        actions: <Widget>[
+        /*actions: <Widget>[
           IconButton(
             onPressed: () {
               // Action lorsque vous appuyez sur le bouton avec l'icône de multiplication
@@ -63,7 +67,7 @@ class _HistoriqueState extends State<Historique> {
               color: Colors.red, // Couleur rouge de l'icône
             ),
           ),
-        ],
+        ],*/
       ),
       body: CustomScrollView(
         slivers: [
@@ -188,8 +192,18 @@ class _HistoriqueState extends State<Historique> {
                           color: (index == 0) // Jaune pour le premier élément
                               ? Colors.yellow
                               : (index == 1) // Bleu pour le deuxième élément
-                                  ? Colors.blue
-                                  : Colors.transparent, // Sinon, transparente
+                              ? Colors.blue
+                              : (index == 2)
+                              ? Colors.yellow
+                              : (index == 3)
+                              ? Colors.blue
+                              : (index == 4)
+                              ? Colors.yellow
+                              : (index == 5)
+                              ? Colors.blue
+                              : (index == 6)
+                              ? Colors.yellow
+                              : Colors.transparent, // Sinon, transparente
                         ),
                         top: BorderSide(
                           width: 2.0,

@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:quiz_master/JouerPage.dart';
 import 'modeles/quiz.dart';
-import 'package:quiz_master/quiz_create.dart';
+// import 'modeles/navigation.dart';
 
 
-class Mesquiz extends StatefulWidget {
-  const Mesquiz({Key? key}) : super(key: key);
+class ListQuiz extends StatefulWidget {
+  const ListQuiz({Key? key}) : super(key: key);
 
   
     @override
-  _MesquizState createState() => _MesquizState();
+  _ListQuiz createState() => _ListQuiz();
 }
 
-class _MesquizState extends State<Mesquiz>{
+class _ListQuiz extends State<ListQuiz>{
   late Future<List<Quiz>> quizList;
   @override
   void initState() {
@@ -143,7 +143,7 @@ class _MesquizState extends State<Mesquiz>{
             margin: const EdgeInsets.only(bottom: 5),
             child:
           const Center(
-            child: Text("MES QUIZ",
+            child: Text("Cliquer sur un quiz pour jouer",
             style: TextStyle(
               color: Colors.blue,
               fontSize: 20,
@@ -152,39 +152,12 @@ class _MesquizState extends State<Mesquiz>{
            ) ,
           ),
   //Liste deroulante
-          Stack(
-                      children: [
-                        Positioned(
-                          left: 5,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                 context,
-                                 MaterialPageRoute(builder: (context) => const QuizCreate()),
-                               );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13),//Vous pouvez jouer sur cette valeur pour avoir le bord arrondi que vous voulez
-                    ),
-                  ),
-                  child: const Text('Créer Quiz +',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 243, 201, 33),
-                    fontSize: 23,
-                    fontWeight: FontWeight.bold
-                  ),),
-                ),
-              ),
-              const Positioned(child: Align(
+          const Align(
             alignment:Alignment.centerRight,
           child:Padding(
             padding: EdgeInsets.only(right: 10),
             child:DropdownMenuExample(),
             ),
-          ),
-          )
-            ],
           ),
         //appeler le fiture builder ici>
         FutureBuilder<List<Quiz>>(
@@ -215,11 +188,12 @@ class _MesquizState extends State<Mesquiz>{
             },
           )
           );
+  
         }
           }
-        )
-
+        ),
         ],
+        
       ),
     );
   }
@@ -322,6 +296,7 @@ class myDetaislContainer extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
+                  
                 ],
                 
               ),

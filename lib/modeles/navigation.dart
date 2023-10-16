@@ -4,6 +4,8 @@ import 'package:quiz_master/dashboard.dart';
 import 'package:quiz_master/profil_utilisateur.dart';
 import 'package:quiz_master/NotificationPage.dart';
 
+import '../historique.dart';
+
 
 
 class NavBar extends StatefulWidget {
@@ -21,11 +23,9 @@ PageController _pageController = PageController();
   
   List<Widget> pages = [
     const Dashboard(),
-    ProfilUtilisateur(),
-    NotificationPage(),
-    // PageProfil(),
-    // const PageAccueil(),
-
+    Historique(),
+    const NotificationPage(),
+    const ProfilUtilisateur()
   ];
 
 

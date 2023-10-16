@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:quiz_master/container/nav_bar_section.dart';
 import 'package:quiz_master/historique.dart';
+import 'package:quiz_master/liste_quiz.dart';
 import 'package:quiz_master/mes_quiz.dart';
 import 'package:quiz_master/quiz_populaire.dart';
 
@@ -132,14 +133,32 @@ class _DashboardState extends State<Dashboard> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset("assets/icons/play.png"),
-                                const Text(
-                                  "Quiz",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ListQuiz()));
+                                  },
+                                  child: Image.asset("assets/icons/play.png"),
+                                ),
+
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const ListQuiz())
+                                    );
+                                  },
+                                  child: const Text(
+                                    "Quiz",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 ),
+
+                                //Image.asset("assets/icons/play.png"),
+
                                 Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 27, 0, 0),
@@ -175,22 +194,21 @@ class _DashboardState extends State<Dashboard> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                                  child:
-                                      Image.asset("assets/icons/mesquiz.png"),
+
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const Mesquiz())
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding:
+                                    const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                    child: Image.asset("assets/icons/mesquiz.png"),
+                                  ),
                                 ),
-                                
-                                /*
-                                
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const NavBarSection()));
-                                
-                                 */
+
 
                                 GestureDetector(
                                   onTap: () {
@@ -491,7 +509,7 @@ class _DashboardState extends State<Dashboard> {
                               onTap: () {
                                 Navigator.push(
                                   context, 
-                                  MaterialPageRoute(builder: (context) => QuizPopulaire())
+                                  MaterialPageRoute(builder: (context) => const QuizPopulaire())
                                 );
                               },
                               child: const Text(
