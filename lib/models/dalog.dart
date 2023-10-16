@@ -1,6 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 library clean_dialog;
 
+// import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:quiz_master/services/api_service.dart';
 
 /// A Clean and minimalist Flutter Dialog
 /***
@@ -164,5 +169,210 @@ class CleanDialogActionButtons extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+// :::::::::::::::::::::::::::::::::::::::::;
+
+// class PopupController extends StatefulWidget {
+//   const PopupController({super.key});
+
+//   @override
+//   State<PopupController> createState() => _PopupControllerState();
+// }
+
+// class _PopupControllerState extends State<PopupController> {
+//   @override
+
+//   Widget build(BuildContext context) {
+//     return const Placeholder();
+//   }
+// }
+class Popup {
+  final TextEditingController _emailController2 = TextEditingController();
+  ServiceLoger service = ServiceLoger();
+  final _formkey = GlobalKey<FormState>();
+
+  void dialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Container(
+              child: AlertDialog(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 1,
+                  width: 40,
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 160, 159, 159)),
+                ),
+                const Text("  Forget Password  "),
+                Container(
+                  height: 1,
+                  width: 40,
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 160, 159, 159)),
+                ),
+              ],
+            ),
+            content: Container(
+              height: 220,
+              // width: 200,
+              child: Form(
+                key: _formkey,
+                child: Column(
+                  children: [
+                    const Text(
+                      "Entrez votre mail pour la  reuitialisation  de votre mot de passe",
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                          border: Border.symmetric(
+                              horizontal:
+                                  BorderSide(width: 0.5, color: Colors.grey))),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: TextFormField(
+                        controller: _emailController2,
+                        decoration: const InputDecoration(
+                          labelText: "Email *",
+                          hintText: "Entree votre adresse mail",
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(9.0))),
+                          contentPadding: EdgeInsets.all(8.0),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Ce champs est Obligatoir";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formkey.currentState!.validate()) {
+                              Map<String, dynamic> user = await service
+                                  .verifyUserEmail(_emailController2.text);
+                              if (user["idUtilisateur"] != null &&
+                                  user.containsKey("idUtilisateur")) {
+                                    
+                                dialogConfirmCode(context);
+                              }
+                            }
+                          },
+                          child: const Text("Envoyer")),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            // actions: [],
+          ));
+        });
+  }
+
+  void dialogConfirmCode(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Container(
+              child: AlertDialog(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 1,
+                  width: 30,
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 160, 159, 159)),
+                ),
+                const Text("  CONFIRMER CODE  "),
+                Container(
+                  height: 1,
+                  width: 30,
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 160, 159, 159)),
+                ),
+              ],
+            ),
+            content: Container(
+              height: 220,
+               width: 200,
+              child: Form(
+                // key: _formkey,
+                child: Column(
+                  children: [
+                    const Text(
+                      "Entrez votre code de confirmation",
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                          border: Border.symmetric(
+                              horizontal:
+                                  BorderSide(width: 0.5, color: Colors.grey))),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: TextFormField(
+                        // controller: _emailController2,
+                        decoration: const InputDecoration(
+                          // labelText: "",
+                          hintText: "Entree votre code",
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(9.0))),
+                          contentPadding: EdgeInsets.all(8.0),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Ce champs est Obligatoir";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            // if (_formkey.currentState!.validate()) {
+                            //    Map<String, dynamic>
+                            //    user = await service
+                            //     .verifyUserEmail(_emailController2.text);
+                            // if (user["idUtilisateur"] != null &&
+                            //     user.containsKey("idUtilisateur")) {
+
+                            // }
+                            // }
+                          },
+                          child: const Text("Envoyer")),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            // actions: [],
+          ));
+        });
   }
 }

@@ -13,15 +13,17 @@ import 'package:quiz_master/main.dart';
 import 'package:quiz_master/services/entete.dart';
 import 'package:quiz_master/services/api_service.dart';
 
+import 'package:quiz_master/dashboard.dart';
+
 // :::::::::::::::::::::::::::::::::::::  statfulwidget class :::::::::
-class inscription extends StatefulWidget {
-  const inscription({Key? key}) : super(key: key);
+class Inscription extends StatefulWidget {
+  const Inscription({Key? key}) : super(key: key);
 
   @override
   _InscriptionState createState() => _InscriptionState();
 }
 
-class _InscriptionState extends State<inscription> {
+class _InscriptionState extends State<Inscription> {
   final TextEditingController _confirmpasswordController =
       TextEditingController();
   final TextEditingController _nomController = TextEditingController();
@@ -30,32 +32,8 @@ class _InscriptionState extends State<inscription> {
   final TextEditingController _passwordController = TextEditingController();
   // final TextEditingController _ageController = TextEditingController();
   Service service = Service();
-  // Future<user>? _futureUser;
-
-  String values = '';
-  String? nom = '';
-
-  String? prenom = '';
-  String? tel = '';
-  String? email = '';
-  String? age = '';
-  String? motDePasse = '';
 
   final _formkey = GlobalKey<FormState>();
-
-  void submit(String b) {
-    setState(() {
-      values = 'Enregistrement effectuer avec succees $b';
-    });
-    // print(values);
-  }
-
-  // String values = '';
-  void affiche(String a) {
-    setState(() {
-      values = 'Binvenue $a';
-    });
-  }
 
   @override
   void initState() {
@@ -63,7 +41,6 @@ class _InscriptionState extends State<inscription> {
     passwordVisible = true;
   }
 
-  bool _isTextFieldEmpty = false;
   bool passwordVisible = false;
 
   @override
@@ -254,186 +231,86 @@ class _InscriptionState extends State<inscription> {
                             ]),
                       ),
                       // :::::::::::::::::::::::formullaires::::::::::::::::::::::::::::::::::
-                      Padding(
+                      Container(
+                        margin: const EdgeInsets.all(10),
                         padding: const EdgeInsets.all(8.0),
                         child: Form(
                           key: _formkey,
                           child: Column(
                             // border: const EdgeInsets.all(context.)
-                            children: <Widget>[
-                              Text(
-                                values,
-                                style: const TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                              // ::::::::::input nom:::::::
+                            children: [
+                              // input nom &prenom:::::::::::::::::::::::::::::::
                               Container(
-                                height: 50,
-                                padding: const EdgeInsets.only(left: 10),
-                                margin: const EdgeInsets.only(bottom: 10.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2,
-                                      color: _isTextFieldEmpty
-                                          ? Colors.red
-                                          : Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                                margin: const EdgeInsets.all(10.0),
                                 child: TextFormField(
                                   controller: _nomController,
-                                  keyboardType: TextInputType.text,
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Entree votre nom ',
+                                    labelText: "Nom & Prenom *",
+                                    hintText: "Entree votre nom et Prenom",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(9.0))),
+                                    contentPadding: EdgeInsets.all(8.0),
                                   ),
-
-                                  onSaved: (newValue) {
-                                    nom = newValue;
-                                  },
-
-                                  onChanged: affiche,
-                                  onFieldSubmitted: submit,
-                                  // obscureText: true,
-                                ),
-                              ),
-                              // ::::::::::::::::::::::;input prenom:::::::::::::::::::
-                              Container(
-                                height: 50,
-                                padding: const EdgeInsets.only(left: 10),
-                                margin: const EdgeInsets.only(bottom: 10.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2,
-                                      color: _isTextFieldEmpty
-                                          ? Colors.red
-                                          : Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: TextFormField(
-                                  controller: _pseudoController,
-                                  keyboardType: TextInputType.text,
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Entree votre  pseudo',
-                                  ),
-
-                                  onSaved: (newValue) {
-                                    nom = newValue;
-                                  },
-
-                                  onChanged: affiche,
-                                  onFieldSubmitted: submit,
-                                  // obscureText: true,
-                                ),
-                              ),
-                              // :::::::::input telephone::::::
-                              // Container(
-                              //   height: 50,
-                              //   padding: const EdgeInsets.only(left: 10),
-                              //   margin: const EdgeInsets.only(bottom: 10.0),
-                              //   decoration: BoxDecoration(
-                              //     border: Border.all(
-                              //         width: 2,
-                              //         color: _isTextFieldEmpty
-                              //             ? Colors.red
-                              //             : Colors.grey),
-                              //     borderRadius: BorderRadius.circular(10),
-                              //   ),
-                              //   child: TextFormField(
-                              //     controller: _telController,
-                              //     keyboardType: TextInputType.number,
-                              //     inputFormatters: [
-                              //       FilteringTextInputFormatter.allow(
-                              //           RegExp(r'[0-9]'))
-                              //     ],
-                              //     decoration: const InputDecoration(
-                              //       border: InputBorder.none,
-                              //       hintText:
-                              //           'Entree votre numero de telephone',
-                              //     ),
-                              //     onChanged: (value) {
-                              //       setState(() {
-                              //         _isTextFieldEmpty = value.isEmpty;
-                              //       });
-                              //     },
-
-                              //     validator: (value) {
-                              //       if (value == null || value.isEmpty) {
-                              //         _isTextFieldEmpty = true;
-                              //         // return '';
-                              //       }
-                              //       return null;
-                              //     },
-
-                              //     onSaved: (newValue) {
-                              //       tel = newValue;
-                              //     },
-
-                              //     // obscureText: true,
-                              //   ),
-                              // ),
-                              // :::::::::::::input email::::::::::::::::
-                              Container(
-                                height: 50,
-                                padding: const EdgeInsets.only(left: 10),
-                                margin: const EdgeInsets.only(bottom: 10.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2,
-                                      color: _isTextFieldEmpty
-                                          ? Colors.red
-                                          : Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: TextFormField(
-                                  controller: _emailController,
-                                  keyboardType: TextInputType.text,
-                                  decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Entree votre adresse mail',
-                                  ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _isTextFieldEmpty = value.isEmpty;
-                                    });
-                                  },
-
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      _isTextFieldEmpty = true;
-                                      // return '';
+                                      return "Ce champs est Obligatoir";
                                     }
                                     return null;
                                   },
-                                  onSaved: (newValue) {
-                                    email = newValue;
-                                  },
-
-                                  // obscureText: true,
                                 ),
                               ),
-                              // ::::::::::::::::::::::::::::::input password::::::::::::::::::::::::::::
+                              // input pseudo::::::::::::::::::::::::::::::::
                               Container(
-                                height: 50,
-                                padding: const EdgeInsets.only(left: 10),
-                                margin: const EdgeInsets.only(bottom: 10.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2,
-                                      color: _isTextFieldEmpty
-                                          ? Colors.red
-                                          : Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
+                                margin: const EdgeInsets.all(10.0),
+                                child: TextFormField(
+                                  controller: _pseudoController,
+                                  decoration: const InputDecoration(
+                                    labelText: "Pseudo *",
+                                    hintText: "Entree votre Pseudonime",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(9.0))),
+                                    contentPadding: EdgeInsets.all(8.0),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Ce champs est Obligatoir";
+                                    }
+                                    return null;
+                                  },
                                 ),
+                              ),
+                              // input mail::::::::::::::::::::::::::::::::::::::
+                              Container(
+                                margin: const EdgeInsets.all(10.0),
+                                child: TextFormField(
+                                  controller: _emailController,
+                                  decoration: const InputDecoration(
+                                    labelText: "Email *",
+                                    hintText: "Entree votre adresse mail",
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(9.0))),
+                                    contentPadding: EdgeInsets.all(8.0),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Ce champs est Obligatoir";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              // input password:::::::::::::::::::::::::::::::
+                              Container(
+                                margin: const EdgeInsets.all(10.0),
                                 child: TextFormField(
                                   controller: _passwordController,
                                   obscureText: passwordVisible,
-                                  keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'password',
+                                    labelText: "Password *",
+                                    hintText: "Entree votre mot  de passe",
                                     suffixIcon: IconButton(
                                       icon: Icon(passwordVisible
                                           ? Icons.visibility
@@ -446,47 +323,30 @@ class _InscriptionState extends State<inscription> {
                                         );
                                       },
                                     ),
+                                    border: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(9.0))),
+                                    contentPadding: const EdgeInsets.all(8.0),
                                   ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _isTextFieldEmpty = value.isEmpty;
-                                    });
-                                  },
-
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      _isTextFieldEmpty = true;
-                                      // return '';
+                                      return "Ce champs et Obligatoir";
                                     }
+
                                     return null;
                                   },
-                                  onSaved: (newValue) {
-                                    motDePasse = newValue;
-                                  },
-
-                                  // obscureText: true,
                                 ),
                               ),
-                              // :::::::::::::::::::::::::::::::input confirm password:::::::::::::::::::::::::::::::::
+
+                              // input password confirmer::::::::::::::::::::::::::::
                               Container(
-                                height: 50,
-                                padding: const EdgeInsets.only(left: 10),
-                                margin: const EdgeInsets.only(bottom: 10.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2,
-                                      color: _isTextFieldEmpty
-                                          ? Colors.red
-                                          : Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                                margin: const EdgeInsets.all(10.0),
                                 child: TextFormField(
                                   controller: _confirmpasswordController,
                                   obscureText: passwordVisible,
-                                  keyboardType: TextInputType.text,
                                   decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'confirmer votre password',
+                                    labelText: "Confirmer Password*",
+                                    hintText: "Confirmer votre mot de passe",
                                     suffixIcon: IconButton(
                                       icon: Icon(passwordVisible
                                           ? Icons.visibility
@@ -497,105 +357,89 @@ class _InscriptionState extends State<inscription> {
                                             passwordVisible = !passwordVisible;
                                           },
                                         );
-                                      }, //color: Colors.green,
+                                      },
                                     ),
+                                    border: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(9.0))),
+                                    contentPadding: EdgeInsets.all(8.0),
                                   ),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _isTextFieldEmpty = value.isEmpty;
-                                    });
-                                  },
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      _isTextFieldEmpty = true;
-                                      // return '';
+                                      return "Ce champs est Obligatoir";
+                                    }
+                                    if (value != _passwordController.text) {
+                                      return "mot de passe incorrect";
                                     }
                                     return null;
                                   },
-                                  onSaved: (newValue) {
-                                    age = newValue;
-                                  },
                                 ),
                               ),
+
                               // ::::::::::::::::::::::::::button de validation:::::::::::::::::::::::::::::
-                              ElevatedButton(
-                                onPressed: () async {
-                                  try {
-                                    // Appel de la méthode saveUser et attendre la réponse
-                                    final response = await service.saveUser(
-                                      _nomController.text,
-                                      _pseudoController.text,
-                                      _emailController.text,
-                                      _passwordController.text,
-                                      _confirmpasswordController.text,
-                                    );
-                                    debugPrint("response: ${response.statusCode}");
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    if (_formkey.currentState!.validate()) {
+                                      try {
+                                        // Appel de la méthode saveUser et attendre la réponse
+                                        final response = await service.saveUser(
+                                          _nomController.text,
+                                          _pseudoController.text,
+                                          _emailController.text,
+                                          _passwordController.text,
+                                          _confirmpasswordController.text,
+                                        );
 
-                                    // Vérification du code de statut HTTP de la réponse
-                                    if (response.statusCode == 200) {
-                                       debugPrint("response: ");
-                                      // Succès : Utilisateur créé avec succès
+                                        // Vérification du code de statut HTTP de la réponse
+                                        if (response.statusCode == 200) {
+                                          debugPrint("response: ");
+                                          // Succès : Utilisateur créé avec succès
 
-                                      // Afficher un toast/modal de succès
-                                      Fluttertoast.showToast(
-                                        msg: "Utilisateur créé avec succès",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 2,
-                                        backgroundColor: Colors.green,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0,
-                                      );
+                                          // Afficher un toast/modal de succès
+                                          Fluttertoast.showToast(
+                                            msg: "Utilisateur créé avec succès",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 2,
+                                            backgroundColor: Colors.green,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0,
+                                          );
 
-                                      // Rediriger l'utilisateur vers une autre page
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const HomePage(),
-                                        ),
-                                      );
-                                    } else {
-                                      // Échec : Gérer l'erreur ici, par exemple afficher un toast/modal d'erreur
-                                      Fluttertoast.showToast(
-                                        msg:
-                                            "Erreur lors de la création de l'utilisateur",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.red,
-                                        textColor:
-                                            Color.fromARGB(255, 6, 231, 6),
-                                        fontSize: 16.0,
-                                      );
+                                          // Rediriger l'utilisateur vers une autre page
+                                          // ignore: use_build_context_synchronously
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const Dashboard(),
+                                            ),
+                                          );
+
+                                          // ignore: use_build_context_synchronously
+                                          FocusScope.of(context)
+                                              .requestFocus(FocusNode());
+                                        } else {
+                                          // Échec : Gérer l'erreur ici, par exemple afficher un toast/modal d'erreur
+                                        }
+                                      } catch (error) {
+                                        // Gérer les erreurs générales ici, par exemple afficher un toast/modal d'erreur
+                                      }
                                     }
-                                  } catch (error) {
-                                    // Gérer les erreurs générales ici, par exemple afficher un toast/modal d'erreur
-                                    Fluttertoast.showToast(
-                                      msg: "Une erreur s'est produite : $error",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 2,
-                                      backgroundColor: Colors.red,
-                                      textColor: Colors.white,
-                                      fontSize: 16.0,
-                                    );
-                                  }
-
-                                  
-                                },
-                                // onPressed: validationForm,
-
-                                style: ElevatedButton.styleFrom(
-                                  // enabledMouseCursor: ,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(7)),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 95, vertical: 10),
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    // enabledMouseCursor: ,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(7)),
+                                    // padding: const EdgeInsets.symmetric(
+                                    //     horizontal: 2, vertical: 10),
+                                  ),
+                                  child: const Text('S’INSCRIRE',
+                                      style: TextStyle(
+                                          fontSize: 30, color: Colors.amber)),
                                 ),
-                                child: const Text('S’INSCRIRE',
-                                    style: TextStyle(
-                                        fontSize: 30, color: Colors.amber)),
                               ),
                             ],
                           ),

@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,7 +11,7 @@ class user {
   final int id;
   final String nomPrenom;
   // final String prenom;
-  final String pesudo;
+  final String pseudo;
   // final int age;
   final String email;
   final String motDePasse;
@@ -18,7 +20,7 @@ class user {
   const user({
     required this.id,
     required this.nomPrenom,
-    required this.pesudo,
+    required this.pseudo,
     // required this.age,
     required this.email,
     required this.motDePasse,
@@ -29,7 +31,7 @@ class user {
     return user(
       id: json['idUtilisateur'],
       nomPrenom: json['nomPrenom'],
-      pesudo: json['pesudo'],
+      pseudo: json['pseudo'],
       // tel: json['tel'],
       // age: json['age'],
       email: json['email'],
@@ -99,13 +101,15 @@ class Service {
       // Vérifie le code de statut de la réponse
       if (response.statusCode == 200) {
         // Succès : Utilisateur créé avec succès
-// Stockez les données de l'utilisateur dans SharedPreferences
+        // Stockez les données de l'utilisateur dans SharedPreferences
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('nomPrenom', nomPrenom);
         await prefs.setString('pseudo', pseudo);
         await prefs.setString('email', email);
         await prefs.setString('motDePasse', motDePasse);
         await prefs.setString('confirmPasseword', confirmPasseword);
+
+       
 
         return response;
       } else {
@@ -117,6 +121,7 @@ class Service {
       // Gestion des erreurs générales (par exemple, perte de connexion)
       throw Exception('Une erreur s\'est produite : $error');
     }
+    
   }
 }
 // :::::::::::::::::::::::::::login:::::::::::::
@@ -128,6 +133,37 @@ class ServiceLoger {
       // Créez l'URI pour la vérification de l'utilisateur avec les paramètres dans l'URL (GET)
       var uri = Uri.parse(
           "http://10.0.2.2:8080/utilisateur/connexion?email=$email&mot_de_passe=$motDePasse");
+      debugPrint("$uri");
+      // Envoie la requête GET
+      var response = await http.post(uri);
+
+      // Vérifie le code de statut de la réponse
+      if (response.statusCode == 200) {
+        debugPrint("${response.statusCode}");
+        debugPrint(response.body);
+        // Succès : Utilisateur existe et informations correctes
+        return json.decode(response.body);
+      } else if (response.statusCode == 401) {
+        debugPrint(" existe et informations correctes");
+        // Échec : Utilisateur existe, mais informations incorrectes
+        return Map();
+      } else {
+        // Autres cas de code de statut (gestion d'erreur)
+        throw Exception(
+            'Erreur lors de la vérification de l\'utilisateur. Code de statut : ${response.body}');
+      }
+    } catch (error) {
+      // Gestion des erreurs générales (par exemple, perte de connexion)
+      throw Exception('Une erreur s\'est produite : $error');
+    }
+  }
+  
+  Future<Map<String, dynamic>> verifyUserEmail(
+      String email) async {
+    try {
+      // Créez l'URI pour la vérification de l'utilisateur avec les paramètres dans l'URL (GET)
+      var uri = Uri.parse(
+          "http://10.0.2.2:8080/utilisateur/verifierUser?email=$email");
       debugPrint("$uri");
       // Envoie la requête GET
       var response = await http.post(uri);
@@ -165,11 +201,12 @@ Future<user> localStorage() async {
   user utilisateur = user(
     id: 0,
     nomPrenom: nomPrenom ?? '',
-    pesudo: pseudo ?? '',
+    pseudo: pseudo ?? '',
     email: email ?? '',
     motDePasse: motDePasse ?? '',
     confirmPasseword: confirmPasseword ?? '',
   );
+
   if (nomPrenom != null &&
       pseudo != null &&
       email != null &&
@@ -182,6 +219,7 @@ Future<user> localStorage() async {
     debugPrint('Email : $email');
     debugPrint('Mot de passe : $motDePasse');
     debugPrint('Confirmation du mot de passe : $confirmPasseword');
+    // return utilisateur;
   } else {
     // Les données de l'utilisateur n'ont pas encore été stockées ou il y a une erreur.
     debugPrint(
@@ -190,176 +228,28 @@ Future<user> localStorage() async {
   return utilisateur;
 }
 
+// methode authentification google:::::::::::::::::::::::::::::
+Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser != null) {
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
+      // Once signed in, return the UserCredential
 
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } else {
+      debugPrint('user null');
+      throw Error;
+    }
+  }
 
-
-
-
-// class ServiceLoger {
-//   Future<user> verifyUser(String email, String motDePasse) async {
-//     try {
-//       // Créez l'URI pour la vérification de l'utilisateur
-//       var uri = Uri.parse("http://10.0.2.2:8080/utilisateur/connexion");
-
-//       // // En-têtes
-//       // Map<String, String> headers = {"Content-Type": "application/json"};
-
-//       // // Corps de la requête
-//       // Map data = {
-//       //   'email': email,
-//       //   'motDePasse': motDePasse,
-//       // };
-
-//       // Convertit les données en JSON
-//       var body = json.encode(data);
-
-//       // Envoie la requête POST
-//       var response = await http.post(uri, headers: headers, body: body);
-
-//       // Vérifie le code de statut de la réponse
-//       if (response.statusCode == 200) {
-//         // Succès : Utilisateur existe et informations correctes
-//         return json.decode(response.body);
-//       } else if (response.statusCode == 401) {
-//         // Échec : Utilisateur existe, mais informations incorrectes
-//          return user.fromJson(json.decode(response.body));
-//       } else {
-//         // Autres cas de code de statut (gestion d'erreur)
-//         throw Exception('Erreur lors de la vérification de l\'utilisateur. Code de statut : ${response.body}');
-//       }
-//     } catch (error) {
-//       // Gestion des erreurs générales (par exemple, perte de connexion)
-//       throw Exception('Une erreur s\'est produite : $error');
-//     }
-//   }
-// }
-
- 
-//  Future<bool> alertDialog( BuildContext context) {
-//   return showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: Text('Done'),
-//           content: Text('Add Success'),
-//           actions: <Widget>[
-//             FlatButton(
-//               child: Text('Ok'),
-//               onPressed: () {
-//                 Navigator.pop(context);
-//               },
-//             ),
-//           ],
-//         );
-//       });
-// }
-
-// class _inscrisState extends State<test> {
-//   final TextEditingController _controller = TextEditingController();
-//   Future<user>? _futureuser;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Create Data Example',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Create Data Example'),
-//         ),
-//         body: Container(
-//           alignment: Alignment.center,
-//           padding: const EdgeInsets.all(8),
-//           child: (_futureuser == null) ? buildColumn() : buildFutureBuilder(),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Column buildColumn() {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: <Widget>[
-//         TextField(
-//           controller: _controller,
-//           decoration: const InputDecoration(hintText: 'Enter Title'),
-//         ),
-//         ElevatedButton(
-//           onPressed: () {
-//             setState(() {
-//               _futureuser = saveUser(_controller.text);
-//             });
-//           },
-//           child: const Text('Create Data'),
-//         ),
-//       ],
-//     );
-//   }
-
-//   FutureBuilder<user> buildFutureBuilder() {
-//     return FutureBuilder<user>(
-//       future: _futureuser,
-//       builder: (context, snapshot) {
-//         if (snapshot.hasData) {
-//           return Text(snapshot.data!.nom);
-//         } else if (snapshot.hasError) {
-//           return Text('${snapshot.error}');
-//         }
-
-//         return const CircularProgressIndicator();
-//       },
-//     );
-//   }
-// }
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-// class MyApi extends StatefulWidget {
-//   const MyApi({super.key});
-
-//   @override
-//   State<MyApi> createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApi> {
-//   late Future<user> futureUser;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     futureUser = fetchAlbum();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Fetch Data Example',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Fetch Data Example'),
-//         ),
-//         body: Center(
-//           child: FutureBuilder<user>(
-//             future: futureUser,
-//             builder: (context, snapshot) {
-//               if (snapshot.hasData) {
-//                 return Text(snapshot.data!.nom);
-//               } else if (snapshot.hasError) {
-//                 return Text('${snapshot.error}');
-//               }
-
-//               // By default, show a loading spinner.
-//               return const CircularProgressIndicator();
-//             },
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  

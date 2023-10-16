@@ -31,7 +31,7 @@ class Quiz extends StatelessWidget {
       //home: PageAccueil(),
       // home: QuizPopulaire(),
       // home: NavBar(),
-      home: login(),
+      // home: login(),
       // home: HomeWidget(),
       // home: Dashboard(),
       // home: JouerPage(),

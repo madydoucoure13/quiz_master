@@ -69,7 +69,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const inscription()));
+                              builder: (context) => const Inscription()));
                     },
                     child: Padding(
                       padding: EdgeInsets.all(15),
